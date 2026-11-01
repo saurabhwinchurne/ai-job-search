@@ -14,6 +14,12 @@ fork, prefer updating to a tagged release over pulling raw `master` (see
 files a release touched; `python3 tools/check_upstream_updates.py` lists them with
 per-file diff commands.
 
+## [Unreleased]
+
+### Added
+
+- **[ARCH-1] Foundation & Runtime Bridge** (#9) - Establish native Google Antigravity support by configuring repository entry point (`GEMINI.md`) and directory rules (`AGENTS.md`) using Thin-Pointer architecture.
+
 ## [1.7.4]
 
 ### Added

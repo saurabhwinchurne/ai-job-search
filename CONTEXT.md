@@ -20,7 +20,7 @@
 | Issue # | Scope | Title | Status | Branch | PR |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | [#1](https://github.com/saurabhwinchurne/ai-job-search/issues/1) | `[ARCH-1]` | Foundation & Runtime Bridge — Native Antigravity Rules & Single Source of Truth | `Done` | `feature/ARCH-1-foundation-runtime-bridge` | [#9](https://github.com/saurabhwinchurne/ai-job-search/pull/9) |
-| [#2](https://github.com/saurabhwinchurne/ai-job-search/issues/2) | `[ARCH-2]` | Subagent Architecture — Antigravity Subagent Definitions & Tool Adapters | `In Progress` | `feature/ARCH-2-subagent-architecture` | - |
+| [#2](https://github.com/saurabhwinchurne/ai-job-search/issues/2) | `[ARCH-2]` | Subagent Architecture — Antigravity Subagent Definitions & Tool Adapters | `In Review` | `feature/ARCH-2-subagent-architecture` | [#10](https://github.com/saurabhwinchurne/ai-job-search/pull/10) |
 | [#3](https://github.com/saurabhwinchurne/ai-job-search/issues/3) | `[CMD-1]` | Profile Onboarding & Management — Port `/setup`, `/reset`, and `/expand` | `Todo` | - | - |
 | [#4](https://github.com/saurabhwinchurne/ai-job-search/issues/4) | `[CMD-2]` | Job Search & Triage Pipeline — Port `/scrape` and `/rank` Skills | `Todo` | - | - |
 | [#5](https://github.com/saurabhwinchurne/ai-job-search/issues/5) | `[CMD-3]` | Core Application Engine — Port `/apply` and `job-application-assistant` | `Todo` | - | - |
@@ -70,7 +70,7 @@
 
 ### [ARCH-2] Subagent Architecture — Antigravity Subagent Definitions & Tool Adapters
 - **Branch:** `feature/ARCH-2-subagent-architecture`
-- **Status:** In Progress
+- **Status:** In Review
 - **Goal:** Establish Antigravity-native subagent definitions and tool permission adapters for the three specialized worker agents (`posting-fetcher`, `posting-scorer`, `application-reviewer`), adhering to the workspace's trust boundaries, prompt injection defenses, and factual grounding rules.
 - **Planned Approach:**
   - Create Antigravity subagent specifications under `.agents/subagents/`:
@@ -94,12 +94,13 @@
   - `GEMINI.md` (Modified)
   - `CONTEXT.md` (Modified)
 - **Verification:**
-  - `python3 -m unittest tests/test_antigravity_subagents.py`
-  - `python3 tools/security_guards.py`
-  - `python3 tools/lint_skills.py`
-  - `python3 tools/check_framework_version.py`
-  - `GIT_EDITOR=true python3 -m unittest discover -s tests`
-- **PR:** *Pending*
+  - `python3 -m unittest tests/test_antigravity_subagents.py` (Passed — 15 tests, 0 failures)
+  - `python3 tools/security_guards.py` (Passed — 0 errors)
+  - `python3 tools/lint_skills.py` (Passed — 0 errors)
+  - `python3 tools/check_framework_version.py` (Passed — OK)
+  - `python3 tools/antigravity_subagents.py validate` (Passed — OK)
+  - `GIT_EDITOR=true python3 -m unittest discover -s tests` (Passed — 894 tests, 0 failures)
+- **PR:** [#10](https://github.com/saurabhwinchurne/ai-job-search/pull/10)
 
 ---
 

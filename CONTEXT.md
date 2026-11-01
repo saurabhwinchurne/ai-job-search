@@ -9,9 +9,9 @@
 - **Project:** Native Google Antigravity, Antigravity IDE, and `agy` CLI support for AI Job Search
 - **Repository:** `https://github.com/saurabhwinchurne/ai-job-search`
 - **Kanban Board:** [GitHub Project #4 (@saurabhwinchurne's ai-job-search)](https://github.com/users/saurabhwinchurne/projects/4)
-- **Current Phase:** Ticket Execution: ARCH-2 In Progress
-- **Active Ticket:** [ARCH-2] Subagent Architecture — Antigravity Subagent Definitions & Tool Adapters (Issue #2)
-- **Active Branch:** `feature/ARCH-2-subagent-architecture`
+- **Current Phase:** Ticket Execution: ARCH-2 Completed & Merged. Ready for next ticket.
+- **Active Ticket:** *None (ARCH-2 Done; ready for next ticket)*
+- **Active Branch:** `master`
 
 ---
 
@@ -20,7 +20,7 @@
 | Issue # | Scope | Title | Status | Branch | PR |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | [#1](https://github.com/saurabhwinchurne/ai-job-search/issues/1) | `[ARCH-1]` | Foundation & Runtime Bridge — Native Antigravity Rules & Single Source of Truth | `Done` | `feature/ARCH-1-foundation-runtime-bridge` | [#9](https://github.com/saurabhwinchurne/ai-job-search/pull/9) |
-| [#2](https://github.com/saurabhwinchurne/ai-job-search/issues/2) | `[ARCH-2]` | Subagent Architecture — Antigravity Subagent Definitions & Tool Adapters | `In Review` | `feature/ARCH-2-subagent-architecture` | [#10](https://github.com/saurabhwinchurne/ai-job-search/pull/10) |
+| [#2](https://github.com/saurabhwinchurne/ai-job-search/issues/2) | `[ARCH-2]` | Subagent Architecture — Antigravity Subagent Definitions & Tool Adapters | `Done` | `feature/ARCH-2-subagent-architecture` | [#10](https://github.com/saurabhwinchurne/ai-job-search/pull/10) |
 | [#3](https://github.com/saurabhwinchurne/ai-job-search/issues/3) | `[CMD-1]` | Profile Onboarding & Management — Port `/setup`, `/reset`, and `/expand` | `Todo` | - | - |
 | [#4](https://github.com/saurabhwinchurne/ai-job-search/issues/4) | `[CMD-2]` | Job Search & Triage Pipeline — Port `/scrape` and `/rank` Skills | `Todo` | - | - |
 | [#5](https://github.com/saurabhwinchurne/ai-job-search/issues/5) | `[CMD-3]` | Core Application Engine — Port `/apply` and `job-application-assistant` | `Todo` | - | - |
@@ -70,7 +70,7 @@
 
 ### [ARCH-2] Subagent Architecture — Antigravity Subagent Definitions & Tool Adapters
 - **Branch:** `feature/ARCH-2-subagent-architecture`
-- **Status:** In Review
+- **Status:** Done (Merged to master on 2026-11-01 in PR #10)
 - **Goal:** Establish Antigravity-native subagent definitions and tool permission adapters for the three specialized worker agents (`posting-fetcher`, `posting-scorer`, `application-reviewer`), adhering to the workspace's trust boundaries, prompt injection defenses, and factual grounding rules.
 - **Planned Approach:**
   - Create Antigravity subagent specifications under `.agents/subagents/`:

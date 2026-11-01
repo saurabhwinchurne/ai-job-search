@@ -19,6 +19,7 @@ per-file diff commands.
 ### Added
 
 - **[ARCH-1] Foundation & Runtime Bridge** (#9) - Establish native Google Antigravity support by configuring repository entry point (`GEMINI.md`) and directory rules (`AGENTS.md`) using Thin-Pointer architecture.
+- **[ARCH-2] Subagent Architecture** (#10) - Establish native Antigravity subagent specifications (`posting-fetcher`, `posting-scorer`, `application-reviewer`), tool adapter `tools/antigravity_subagents.py`, security guards validation, and unit tests.
 
 ## [1.7.4]
 

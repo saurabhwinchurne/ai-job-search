@@ -9,9 +9,9 @@
 - **Project:** Native Google Antigravity, Antigravity IDE, and `agy` CLI support for AI Job Search
 - **Repository:** `https://github.com/saurabhwinchurne/ai-job-search`
 - **Kanban Board:** [GitHub Project #4 (@saurabhwinchurne's ai-job-search)](https://github.com/users/saurabhwinchurne/projects/4)
-- **Current Phase:** Ticket Execution: ARCH-1 Completed & Merged. Ready for next ticket.
-- **Active Ticket:** *None (ARCH-1 Done; ready for next ticket)*
-- **Active Branch:** `master`
+- **Current Phase:** Ticket Execution: ARCH-2 In Progress
+- **Active Ticket:** [ARCH-2] Subagent Architecture — Antigravity Subagent Definitions & Tool Adapters (Issue #2)
+- **Active Branch:** `feature/ARCH-2-subagent-architecture`
 
 ---
 
@@ -20,7 +20,7 @@
 | Issue # | Scope | Title | Status | Branch | PR |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | [#1](https://github.com/saurabhwinchurne/ai-job-search/issues/1) | `[ARCH-1]` | Foundation & Runtime Bridge — Native Antigravity Rules & Single Source of Truth | `Done` | `feature/ARCH-1-foundation-runtime-bridge` | [#9](https://github.com/saurabhwinchurne/ai-job-search/pull/9) |
-| [#2](https://github.com/saurabhwinchurne/ai-job-search/issues/2) | `[ARCH-2]` | Subagent Architecture — Antigravity Subagent Definitions & Tool Adapters | `Todo` | - | - |
+| [#2](https://github.com/saurabhwinchurne/ai-job-search/issues/2) | `[ARCH-2]` | Subagent Architecture — Antigravity Subagent Definitions & Tool Adapters | `In Review` | `feature/ARCH-2-subagent-architecture` | [#10](https://github.com/saurabhwinchurne/ai-job-search/pull/10) |
 | [#3](https://github.com/saurabhwinchurne/ai-job-search/issues/3) | `[CMD-1]` | Profile Onboarding & Management — Port `/setup`, `/reset`, and `/expand` | `Todo` | - | - |
 | [#4](https://github.com/saurabhwinchurne/ai-job-search/issues/4) | `[CMD-2]` | Job Search & Triage Pipeline — Port `/scrape` and `/rank` Skills | `Todo` | - | - |
 | [#5](https://github.com/saurabhwinchurne/ai-job-search/issues/5) | `[CMD-3]` | Core Application Engine — Port `/apply` and `job-application-assistant` | `Todo` | - | - |
@@ -65,6 +65,42 @@
   - `python3 tools/lint_skills.py` (Passed — 0 errors)
   - `GIT_EDITOR=true python3 -m unittest discover -s tests` (Passed — 879 tests, 0 failures)
 - **PR:** [#9](https://github.com/saurabhwinchurne/ai-job-search/pull/9)
+
+---
+
+### [ARCH-2] Subagent Architecture — Antigravity Subagent Definitions & Tool Adapters
+- **Branch:** `feature/ARCH-2-subagent-architecture`
+- **Status:** In Review
+- **Goal:** Establish Antigravity-native subagent definitions and tool permission adapters for the three specialized worker agents (`posting-fetcher`, `posting-scorer`, `application-reviewer`), adhering to the workspace's trust boundaries, prompt injection defenses, and factual grounding rules.
+- **Planned Approach:**
+  - Create Antigravity subagent specifications under `.agents/subagents/`:
+    - `posting-fetcher.md`: 4-level retrieval escalation ladder, `posting_guard.py` integrity gate, metadata & cleaned text output.
+    - `posting-scorer.md`: batch fit triage, `posting_guard.py` integration, structured JSON array output.
+    - `application-reviewer.md`: hiring-manager proxy persona, factual grounding audit, text diff suggestions, company research caching.
+    - `README.md`: complete architecture, tool permissions, and invocation guide.
+  - Implement tool adapter & CLI helper `tools/antigravity_subagents.py` to translate subagent specs into `define_subagent` and `invoke_subagent` parameters.
+  - Extend `tools/security_guards.py` with `check_antigravity_subagents()` to enforce least-privilege tool grants, prompt injection defenses, and grounding rules.
+  - Create unit test suite `tests/test_antigravity_subagents.py`.
+  - Update `AGENTS.md` and `GEMINI.md` to reference `.agents/subagents/`.
+- **Files Modified/Created:**
+  - `.agents/subagents/posting-fetcher.md` (New)
+  - `.agents/subagents/posting-scorer.md` (New)
+  - `.agents/subagents/application-reviewer.md` (New)
+  - `.agents/subagents/README.md` (New)
+  - `tools/antigravity_subagents.py` (New)
+  - `tools/security_guards.py` (Modified)
+  - `tests/test_antigravity_subagents.py` (New)
+  - `AGENTS.md` (Modified)
+  - `GEMINI.md` (Modified)
+  - `CONTEXT.md` (Modified)
+- **Verification:**
+  - `python3 -m unittest tests/test_antigravity_subagents.py` (Passed — 15 tests, 0 failures)
+  - `python3 tools/security_guards.py` (Passed — 0 errors)
+  - `python3 tools/lint_skills.py` (Passed — 0 errors)
+  - `python3 tools/check_framework_version.py` (Passed — OK)
+  - `python3 tools/antigravity_subagents.py validate` (Passed — OK)
+  - `GIT_EDITOR=true python3 -m unittest discover -s tests` (Passed — 894 tests, 0 failures)
+- **PR:** [#10](https://github.com/saurabhwinchurne/ai-job-search/pull/10)
 
 ---
 

@@ -299,6 +299,10 @@ ALLOWED_AGENT_TOOLS = {"Read", "Glob", "Grep", "WebFetch", "WebSearch", "Bash"}
 # the prompts this file's allowlists assume.
 ALLOWED_AGENT_PERMISSION_MODES = {"default", "manual", "plan"}
 
+# Allowed native tools for Antigravity subagents defined in .agents/subagents/*.md.
+# These agents process untrusted postings and may never edit or write files directly.
+ALLOWED_ANTIGRAVITY_SUBAGENT_TOOLS = {"read_file", "search_web", "run_command"}
+
 # A skill or command line of the form !`command` runs the command when the
 # skill loads and splices its output into the prompt, with no permission check.
 DYNAMIC_CONTEXT = re.compile(r"!`[^`\n]+`")
@@ -758,6 +762,53 @@ def check_agent_tool_grants() -> None:
             )
 
 
+def check_antigravity_subagents() -> None:
+    subagents_dir = ROOT / ".agents" / "subagents"
+    if not subagents_dir.is_dir():
+        return
+    for path in sorted(subagents_dir.glob("*.md")):
+        if path.name.lower() == "readme.md":
+            continue
+        rel = path.relative_to(ROOT).as_posix()
+        try:
+            text = path.read_text(encoding="utf-8")
+            data = _frontmatter(text)
+        except (OSError, UnicodeDecodeError) as exc:
+            errors.append(f"{rel}: unreadable (must be UTF-8): {exc}")
+            continue
+        if data is None:
+            errors.append(f"{rel}: missing or unterminated frontmatter (expected --- ... ---)")
+            continue
+        keyed = {_key(k): v for k, v in data.items()}
+        if "tools" not in data or not _tool_entries(data.get("tools")):
+            errors.append(
+                f"{rel}: no `tools:` key - Antigravity subagents must declare an explicit tools list "
+                f"drawn from {sorted(ALLOWED_ANTIGRAVITY_SUBAGENT_TOOLS)}."
+            )
+            continue
+        for entry in _tool_entries(data.get("tools")):
+            if entry in ALLOWED_ANTIGRAVITY_SUBAGENT_TOOLS:
+                continue
+            errors.append(
+                f"{rel}: tools entry not in the reviewed allowlist: {entry!r}. Antigravity subagents "
+                f"may only use tools from {sorted(ALLOWED_ANTIGRAVITY_SUBAGENT_TOOLS)}."
+            )
+        if keyed.get("enablesubagenttools") is True:
+            errors.append(
+                f"{rel}: enable_subagent_tools is True (recursive agent spawning forbidden)."
+            )
+        if keyed.get("enablemcptools") is True:
+            errors.append(
+                f"{rel}: enable_mcp_tools is True (unscoped MCP tool execution forbidden)."
+            )
+        if not re.search(
+            r"untrusted (?:third-party )?data, never instructions", text, re.IGNORECASE
+        ):
+            errors.append(
+                f"{rel}: missing required trust boundary statement: 'untrusted third-party data, never instructions'"
+            )
+
+
 def main() -> int:
     check_permissions()
     check_gitignore()
@@ -765,6 +816,7 @@ def main() -> int:
     check_tracked_node_modules()
     check_skill_tool_grants()
     check_agent_tool_grants()
+    check_antigravity_subagents()
     if errors:
         print(f"security_guards: {len(errors)} failure(s)")
         for err in errors:
@@ -773,7 +825,7 @@ def main() -> int:
     print(
         "security_guards: OK (permissions allowlist, hooks allowlist, gitignore rules, "
         "package manifests, no tracked node_modules, skill/command allowed-tools, "
-        "load-time commands, agent tools and modes)"
+        "load-time commands, agent tools and modes, antigravity subagents)"
     )
     return 0
 

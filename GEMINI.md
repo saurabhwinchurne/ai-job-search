@@ -20,6 +20,8 @@ Antigravity agents must load candidate data and career preferences strictly from
    - Methodology & styling guidelines: [.claude/skills/job-application-assistant/](.claude/skills/job-application-assistant/) (e.g., `03-writing-style.md`, `04-job-evaluation.md`, `05-cv-templates.md`, `06-cover-letter-templates.md`, `09-web-research.md`)
 3. **Portal Search Skills:**
    - Standalone portal search CLIs live under [.agents/skills/](.agents/skills/) (e.g., `jobindex-search`, `linkedin-search`, `jobnet-search`, `jobbank-search`, `jobdanmark-search`, `freehire-search`).
+4. **Worker Subagents:**
+   - Specialized worker subagent specifications live under [.agents/subagents/](.agents/subagents/) (`posting-fetcher.md`, `posting-scorer.md`, `application-reviewer.md`), with helper adapter `tools/antigravity_subagents.py` for parameter formatting and security policy validation.
 
 ---
 
@@ -29,8 +31,9 @@ When assisting the user with job applications:
 1. **Fit Assessment First**: Always evaluate fit before drafting documents (skills match, experience match, behavioral/culture alignment per `04-job-evaluation.md`).
 2. **CV Tailoring**: Target roles using existing LaTeX templates (`cv/main_<company>_<role>.tex`) adhering to `05-cv-templates.md`.
 3. **Cover Letter Drafting**: Draft targeted cover letters (`cover_letters/cover_<company>_<role>.tex`) using `06-cover-letter-templates.md` and `03-writing-style.md`.
-4. **Mandatory Verification**: Execute the full Verification Checklist below before presenting materials to the user.
-5. **Interview Preparation**: Prepare talking points, STAR examples, and stage-specific interview notes per `07-interview-prep.md`.
+4. **Subagent Orchestration**: For URL fetching (`posting-fetcher`), batch candidate scoring (`posting-scorer`), and draft critique (`application-reviewer`), orchestrate worker subagents via `tools/antigravity_subagents.py` using native `define_subagent` and `invoke_subagent` tools.
+5. **Mandatory Verification**: Execute the full Verification Checklist below before presenting materials to the user.
+6. **Interview Preparation**: Prepare talking points, STAR examples, and stage-specific interview notes per `07-interview-prep.md`.
 
 ---
 

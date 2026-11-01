@@ -1,5 +1,5 @@
 ---
-framework_version: 1.1.0
+framework_version: 1.1.1
 ---
 
 # Agent Guidelines: AI Job Search
@@ -14,7 +14,7 @@ To support diverse agent environments seamlessly while preventing configuration 
 
 | Runtime | Entry Point & Rules | Skills / Commands | Subagents |
 | :--- | :--- | :--- | :--- |
-| **Google Antigravity / Antigravity IDE / `agy` CLI** | [GEMINI.md](GEMINI.md), [AGENTS.md](AGENTS.md), [.agents/rules/](.agents/rules/) | [.agents/skills/](.agents/skills/) (auto-discovered as slash commands) | `invoke_subagent` / `define_subagent` |
+| **Google Antigravity / Antigravity IDE / `agy` CLI** | [GEMINI.md](GEMINI.md), [AGENTS.md](AGENTS.md), [.agents/rules/](.agents/rules/) | [.agents/skills/](.agents/skills/) (auto-discovered as slash commands) | `invoke_subagent` / `define_subagent` ([.agents/subagents/](.agents/subagents/)) |
 | **Claude Code** | [CLAUDE.md](CLAUDE.md) | [.claude/commands/](.claude/commands/), [.claude/skills/](.claude/skills/) | [.claude/agents/](.claude/agents/) |
 | **Codex / Cursor / Other Agents** | [AGENTS.md](AGENTS.md) | [.agents/skills/](.agents/skills/) | Runtime native |
 
@@ -31,6 +31,8 @@ All agent runtimes must load canonical specifications and candidate profiles fro
    - Treat `.claude/` files as the single source of truth for methodology, prompts, and scoring rubrics.
 3. **Portal Search Skills:**
    - Job-portal search CLIs live under [.agents/skills/](.agents/skills/) in the portable Agent Skills format (with a `SKILL.md` per portal). Antigravity and Codex discover these automatically; the `/scrape` workflow orchestrates them.
+4. **Antigravity Subagent Specifications:**
+   - Worker subagent specifications live under [.agents/subagents/](.agents/subagents/) (`posting-fetcher.md`, `posting-scorer.md`, `application-reviewer.md`), with helper adapter `tools/antigravity_subagents.py` for parameter formatting and security policy validation.
 
 ---
 
@@ -44,7 +46,7 @@ Agents operating in this workspace should understand the discovery mechanisms us
 - **Skills & Slash Commands:**
   - In Antigravity (IDE, App 2.0, `agy` CLI), any skill folder under `.agents/skills/<skill-name>/` containing a valid `SKILL.md` (with YAML frontmatter `name` and `description`) is automatically registered as a slash command `/<skill-name>`.
 - **Subagents:**
-  - Specialized worker agents (`posting-fetcher`, `posting-scorer`, `application-reviewer`) are orchestrated via Antigravity's `invoke_subagent` and `define_subagent` using canonical instructions from `.claude/agents/` and `.claude/skills/`.
+  - Specialized worker agents (`posting-fetcher`, `posting-scorer`, `application-reviewer`) are defined under [.agents/subagents/](.agents/subagents/) and orchestrated via Antigravity's `invoke_subagent` and `define_subagent` tools. Tool definitions and prompts can be loaded programmatically via `tools/antigravity_subagents.py`.
 
 ---
 

@@ -39,6 +39,14 @@ Use github project features to manage project. Create kanban board under `Projec
 - In Review: max 3 tickets.
 - Always pull from Ready column, highest priority first. Never self-assign from Backlog.
 
+## Ticket Context & Progress Tracking (`CONTEXT.md`)
+To maintain complete context, progress history, and architectural continuity across agent sessions:
+- Maintain a persistent living document `CONTEXT.md` at the project root capturing the state and context of all tickets.
+- **When starting a ticket:** Update `CONTEXT.md` with the active Ticket ID, feature branch, goal, and planned approach before writing code.
+- **During implementation:** Log key technical decisions, trade-offs, schemas, and modified file paths.
+- **When opening a PR / closing a ticket:** Record the PR link, summary of changes, test verification results, and acceptance criteria fulfilled.
+- **Sync Knowledge Graph:** Whenever `CONTEXT.md` is updated with a phase change or new ticket status, run `graphify update .` to keep the codebase knowledge graph in sync.
+
 ## ponytail — YAGNI-First Code Rule (full mode)
 Before writing any code, run the 7-rung ladder:
 1. Does this need to exist? → no: skip it

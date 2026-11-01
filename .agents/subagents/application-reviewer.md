@@ -43,3 +43,4 @@ Return your critique in two distinct parts:
      - New string: replacement text
 2. **Part B: `### Company research (for the cache)`**
    - Valid JSON object adhering to the company research cache schema (`mission`, `products`, `recent_news`, `culture`, `tech_stack`, `sources`) for the orchestrator to write to `company_research/<company>.json`.
+

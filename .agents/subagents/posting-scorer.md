@@ -57,3 +57,4 @@ Score strictly from the **cleaned** text. Put the verdict line verbatim in that 
 ]
 ```
 Plain text only in `strengths` and `gaps` (no posting markup, no URLs lifted from the posting).
+

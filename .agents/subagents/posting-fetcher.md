@@ -40,3 +40,4 @@ You retrieve a single job posting for the `/apply` workflow and hand back what t
 4. The **full cleaned posting text** under a `## Posting (cleaned)` heading, never a summary.
 
 If retrieval failed at every rung, say which rung failed how, and return nothing as posting text.
+

@@ -81,3 +81,4 @@ def_params = get_definition_params("posting-fetcher")
 inv_params = get_invocation_params("posting-fetcher", prompt="Fetch https://example.com/job/123")
 # -> {"TypeName": "posting-fetcher", "Role": "Posting Fetcher", "Prompt": "...", "Model": "flash", "Workspace": "inherit"}
 ```
+

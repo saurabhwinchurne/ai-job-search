@@ -9,8 +9,9 @@
 - **Project:** Native Google Antigravity, Antigravity IDE, and `agy` CLI support for AI Job Search
 - **Repository:** `https://github.com/saurabhwinchurne/ai-job-search`
 - **Kanban Board:** [GitHub Project #4 (@saurabhwinchurne's ai-job-search)](https://github.com/users/saurabhwinchurne/projects/4)
-- **Current Phase:** Planning Approved & Baseline Established. Ready for Ticket Execution.
-- **Active Ticket:** *None (No ticket started yet; strictly planning mode)*
+- **Current Phase:** Ticket Execution: ARCH-1 In Progress.
+- **Active Ticket:** Ticket #1: [ARCH-1] Foundation & Runtime Bridge — Native Antigravity Rules & Single Source of Truth Configuration
+- **Active Branch:** `feature/ARCH-1-foundation-runtime-bridge`
 
 ---
 
@@ -18,7 +19,7 @@
 
 | Issue # | Scope | Title | Status | Branch | PR |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| [#1](https://github.com/saurabhwinchurne/ai-job-search/issues/1) | `[ARCH-1]` | Foundation & Runtime Bridge — Native Antigravity Rules & Single Source of Truth | `Todo` | - | - |
+| [#1](https://github.com/saurabhwinchurne/ai-job-search/issues/1) | `[ARCH-1]` | Foundation & Runtime Bridge — Native Antigravity Rules & Single Source of Truth | `In Progress` | `feature/ARCH-1-foundation-runtime-bridge` | - |
 | [#2](https://github.com/saurabhwinchurne/ai-job-search/issues/2) | `[ARCH-2]` | Subagent Architecture — Antigravity Subagent Definitions & Tool Adapters | `Todo` | - | - |
 | [#3](https://github.com/saurabhwinchurne/ai-job-search/issues/3) | `[CMD-1]` | Profile Onboarding & Management — Port `/setup`, `/reset`, and `/expand` | `Todo` | - | - |
 | [#4](https://github.com/saurabhwinchurne/ai-job-search/issues/4) | `[CMD-2]` | Job Search & Triage Pipeline — Port `/scrape` and `/rank` Skills | `Todo` | - | - |
@@ -45,7 +46,26 @@
 
 ## 4. Ticket Execution Log
 
-*(Entries are added here as tickets are picked up, implemented, and reviewed.)*
+### [ARCH-1] Foundation & Runtime Bridge — Native Antigravity Rules & Single Source of Truth
+- **Branch:** `feature/ARCH-1-foundation-runtime-bridge`
+- **Status:** In Progress
+- **Goal:** Establish native Google Antigravity support by configuring the repository entry point and directory-level rules using the Thin-Pointer architecture, ensuring a single source of truth across AI runtimes.
+- **Planned Approach:**
+  - Create `GEMINI.md` at root pointing to candidate profile in `CLAUDE.md` and `.claude/skills/job-application-assistant/01-candidate-profile.md`, canonical workflow specs in `.claude/`, LaTeX and ATS verification checklists, and tool attribution guidelines.
+  - Update `AGENTS.md` with multi-runtime hierarchy (Claude Code + Google Antigravity / Antigravity IDE / `agy` CLI), discovery roots, runtime tool translation matrix, and bump `framework_version` to `1.1.0`.
+  - Maintain all security guards and linters.
+- **Files Modified/Created:**
+  - `GEMINI.md` (New)
+  - `AGENTS.md` (Modified)
+  - `CONTEXT.md` (Modified)
+- **Verification:**
+  - `python3 tools/check_framework_version.py` (Passed — version bumped to 1.1.0)
+  - `python3 tools/security_guards.py` (Passed — 0 errors)
+  - `python3 tools/lint_skills.py` (Passed — 0 errors)
+  - `GIT_EDITOR=true python3 -m unittest discover -s tests` (Passed — 879 tests, 0 failures)
+- **PR:** -
+
+---
 
 ### Template for Ticket Updates:
 ```markdown

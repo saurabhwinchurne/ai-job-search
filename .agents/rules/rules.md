@@ -47,6 +47,25 @@ To maintain complete context, progress history, and architectural continuity acr
 - **When opening a PR / closing a ticket:** Record the PR link, summary of changes, test verification results, and acceptance criteria fulfilled.
 - **Sync Knowledge Graph:** Whenever `CONTEXT.md` is updated with a phase change or new ticket status, run `graphify update .` to keep the codebase knowledge graph in sync.
 
+## Starting a Ticket: Standard Agent Prompt
+When prompting the agent to start working on any ticket from the Kanban board, use the standard prompt template below to ensure full compliance with the workflow, context ledger, and signing requirements:
+
+```text
+/graphify /plan
+Please start working on Ticket #[TICKET-ID]: [TICKET-TITLE] from the Kanban board (https://github.com/users/saurabhwinchurne/projects/4).
+
+Follow the project lifecycle rules strictly:
+1. Inspect the ticket details, scope, and acceptance criteria via GitHub MCP.
+2. Create and switch to the dedicated feature branch:
+   git checkout -b feature/[TICKET-ID]-[short-description]
+3. Update the ticket status to 'In Progress' on the Kanban board.
+4. Update `CONTEXT.md` with the active Ticket ID, branch name, goal, and planned technical approach, then run `graphify update .`.
+5. Implement the solution adhering to the 7-rung ladder (ponytail) and security rules.
+6. Commit all changes with signed commits using `git commit -S -m "[TICKET-ID] Short description"`.
+7. Push the branch using `bash -ic "git push origin feature/[TICKET-ID]-[short-description]"`.
+8. Create a PR assigned to the human reviewer, update `CONTEXT.md` with the PR link, move the ticket to 'In Review' on the Kanban board, and do NOT merge the PR.
+```
+
 ## ponytail — YAGNI-First Code Rule (full mode)
 Before writing any code, run the 7-rung ladder:
 1. Does this need to exist? → no: skip it

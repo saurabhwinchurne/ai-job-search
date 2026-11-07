@@ -9,9 +9,9 @@
 - **Project:** Native Google Antigravity, Antigravity IDE, and `agy` CLI support for AI Job Search
 - **Repository:** `https://github.com/saurabhwinchurne/ai-job-search`
 - **Kanban Board:** [GitHub Project #4 (@saurabhwinchurne's ai-job-search)](https://github.com/users/saurabhwinchurne/projects/4)
-- **Current Phase:** Ticket Execution: ARCH-2 Completed & Merged. Ready for next ticket.
-- **Active Ticket:** *None (ARCH-2 Done; ready for next ticket)*
-- **Active Branch:** `master`
+- **Current Phase:** Ticket Execution: CMD-1 Completed & In Review.
+- **Active Ticket:** `[CMD-1] Profile Onboarding & Management — Port /setup, /reset, and /expand Skills`
+- **Active Branch:** `feature/CMD-1-profile-onboarding-skills`
 
 ---
 
@@ -21,7 +21,7 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | [#1](https://github.com/saurabhwinchurne/ai-job-search/issues/1) | `[ARCH-1]` | Foundation & Runtime Bridge — Native Antigravity Rules & Single Source of Truth | `Done` | `feature/ARCH-1-foundation-runtime-bridge` | [#9](https://github.com/saurabhwinchurne/ai-job-search/pull/9) |
 | [#2](https://github.com/saurabhwinchurne/ai-job-search/issues/2) | `[ARCH-2]` | Subagent Architecture — Antigravity Subagent Definitions & Tool Adapters | `Done` | `feature/ARCH-2-subagent-architecture` | [#10](https://github.com/saurabhwinchurne/ai-job-search/pull/10) |
-| [#3](https://github.com/saurabhwinchurne/ai-job-search/issues/3) | `[CMD-1]` | Profile Onboarding & Management — Port `/setup`, `/reset`, and `/expand` | `Todo` | - | - |
+| [#3](https://github.com/saurabhwinchurne/ai-job-search/issues/3) | `[CMD-1]` | Profile Onboarding & Management — Port `/setup`, `/reset`, and `/expand` | `In Review` | `feature/CMD-1-profile-onboarding-skills` | [#11](https://github.com/saurabhwinchurne/ai-job-search/pull/11) |
 | [#4](https://github.com/saurabhwinchurne/ai-job-search/issues/4) | `[CMD-2]` | Job Search & Triage Pipeline — Port `/scrape` and `/rank` Skills | `Todo` | - | - |
 | [#5](https://github.com/saurabhwinchurne/ai-job-search/issues/5) | `[CMD-3]` | Core Application Engine — Port `/apply` and `job-application-assistant` | `Todo` | - | - |
 | [#6](https://github.com/saurabhwinchurne/ai-job-search/issues/6) | `[CMD-4]` | Post-Application Lifecycle — Port `/interview`, `/outcome`, `/upskill`, `/gmail-sync` | `Todo` | - | - |
@@ -101,6 +101,35 @@
   - `python3 tools/antigravity_subagents.py validate` (Passed — OK)
   - `GIT_EDITOR=true python3 -m unittest discover -s tests` (Passed — 894 tests, 0 failures)
 - **PR:** [#10](https://github.com/saurabhwinchurne/ai-job-search/pull/10)
+
+---
+
+### [CMD-1] Profile Onboarding & Management — Port /setup, /reset, and /expand Skills
+- **Branch:** `feature/CMD-1-profile-onboarding-skills`
+- **Status:** In Review
+- **Goal:** Port the three canonical profile-management commands (`/setup`, `/reset`, `/expand`) to Antigravity-native skill specifications under `.agents/skills/` using the Thin-Pointer architecture, ensuring single-source-of-truth continuity and adding unit test coverage.
+- **Planned Approach:**
+  - Create `.agents/skills/setup/SKILL.md` wrapping `.claude/commands/setup.md` with tool translation matrix, Antigravity `@-mention` file shortcuts, public-fork preflight check, and `ask_question` interactive flow.
+  - Create `.agents/skills/reset/SKILL.md` wrapping `.claude/commands/reset.md` with tool translation matrix, destructive prompt safeguards (`RESET` confirmation), and POSIX delete script specifications.
+  - Create `.agents/skills/expand/SKILL.md` wrapping `.claude/commands/expand.md` with tool translation matrix, trust boundary rules from `09-web-research.md`, additive-only invariants, and `fetch_page.py` fallback notes.
+  - Create `tests/test_cmd1_antigravity_skills.py` validating skill files exist, parse clean frontmatter, reference canonical specs, contain translation matrices, and pass linting & security guards.
+  - Update `AGENTS.md` (bump `framework_version` to `1.1.2`), `GEMINI.md`, `CHANGELOG.md`, and `CONTEXT.md`.
+- **Files Modified/Created:**
+  - `.agents/skills/setup/SKILL.md` (New)
+  - `.agents/skills/reset/SKILL.md` (New)
+  - `.agents/skills/expand/SKILL.md` (New)
+  - `tests/test_cmd1_antigravity_skills.py` (New)
+  - `AGENTS.md` (Modified)
+  - `GEMINI.md` (Modified)
+  - `CHANGELOG.md` (Modified)
+  - `CONTEXT.md` (Modified)
+- **Verification:**
+  - `python3 -m unittest tests/test_cmd1_antigravity_skills.py -v` (Passed — 14 tests, 0 failures)
+  - `python3 tools/lint_skills.py` (Passed — 12 skills, 12 commands, settings.json)
+  - `python3 tools/security_guards.py` (Passed — 0 errors)
+  - `python3 tools/check_framework_version.py` (Passed — OK)
+  - `GIT_EDITOR=true python3 -m unittest discover -s tests` (Passed — 908 tests, 0 failures)
+- **PR:** [#11](https://github.com/saurabhwinchurne/ai-job-search/pull/11)
 
 ---
 

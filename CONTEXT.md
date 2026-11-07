@@ -9,9 +9,9 @@
 - **Project:** Native Google Antigravity, Antigravity IDE, and `agy` CLI support for AI Job Search
 - **Repository:** `https://github.com/saurabhwinchurne/ai-job-search`
 - **Kanban Board:** [GitHub Project #4 (@saurabhwinchurne's ai-job-search)](https://github.com/users/saurabhwinchurne/projects/4)
-- **Current Phase:** Ticket Execution: CMD-1 Completed & In Review.
-- **Active Ticket:** `[CMD-1] Profile Onboarding & Management — Port /setup, /reset, and /expand Skills`
-- **Active Branch:** `feature/CMD-1-profile-onboarding-skills`
+- **Current Phase:** Ticket Execution: CMD-1 Completed & Merged. Ready for next ticket.
+- **Active Ticket:** *None (CMD-1 Done; ready for next ticket)*
+- **Active Branch:** `master`
 
 ---
 
@@ -21,7 +21,7 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | [#1](https://github.com/saurabhwinchurne/ai-job-search/issues/1) | `[ARCH-1]` | Foundation & Runtime Bridge — Native Antigravity Rules & Single Source of Truth | `Done` | `feature/ARCH-1-foundation-runtime-bridge` | [#9](https://github.com/saurabhwinchurne/ai-job-search/pull/9) |
 | [#2](https://github.com/saurabhwinchurne/ai-job-search/issues/2) | `[ARCH-2]` | Subagent Architecture — Antigravity Subagent Definitions & Tool Adapters | `Done` | `feature/ARCH-2-subagent-architecture` | [#10](https://github.com/saurabhwinchurne/ai-job-search/pull/10) |
-| [#3](https://github.com/saurabhwinchurne/ai-job-search/issues/3) | `[CMD-1]` | Profile Onboarding & Management — Port `/setup`, `/reset`, and `/expand` | `In Review` | `feature/CMD-1-profile-onboarding-skills` | [#11](https://github.com/saurabhwinchurne/ai-job-search/pull/11) |
+| [#3](https://github.com/saurabhwinchurne/ai-job-search/issues/3) | `[CMD-1]` | Profile Onboarding & Management — Port `/setup`, `/reset`, and `/expand` | `Done` | `feature/CMD-1-profile-onboarding-skills` | [#11](https://github.com/saurabhwinchurne/ai-job-search/pull/11) |
 | [#4](https://github.com/saurabhwinchurne/ai-job-search/issues/4) | `[CMD-2]` | Job Search & Triage Pipeline — Port `/scrape` and `/rank` Skills | `Todo` | - | - |
 | [#5](https://github.com/saurabhwinchurne/ai-job-search/issues/5) | `[CMD-3]` | Core Application Engine — Port `/apply` and `job-application-assistant` | `Todo` | - | - |
 | [#6](https://github.com/saurabhwinchurne/ai-job-search/issues/6) | `[CMD-4]` | Post-Application Lifecycle — Port `/interview`, `/outcome`, `/upskill`, `/gmail-sync` | `Todo` | - | - |
@@ -106,7 +106,7 @@
 
 ### [CMD-1] Profile Onboarding & Management — Port /setup, /reset, and /expand Skills
 - **Branch:** `feature/CMD-1-profile-onboarding-skills`
-- **Status:** In Review
+- **Status:** Done (Merged to master on 2026-11-08 in PR #11)
 - **Goal:** Port the three canonical profile-management commands (`/setup`, `/reset`, `/expand`) to Antigravity-native skill specifications under `.agents/skills/` using the Thin-Pointer architecture, ensuring single-source-of-truth continuity and adding unit test coverage.
 - **Planned Approach:**
   - Create `.agents/skills/setup/SKILL.md` wrapping `.claude/commands/setup.md` with tool translation matrix, Antigravity `@-mention` file shortcuts, public-fork preflight check, and `ask_question` interactive flow.

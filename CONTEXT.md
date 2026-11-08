@@ -9,7 +9,7 @@
 - **Project:** Native Google Antigravity, Antigravity IDE, and `agy` CLI support for AI Job Search
 - **Repository:** `https://github.com/saurabhwinchurne/ai-job-search`
 - **Kanban Board:** [GitHub Project #4 (@saurabhwinchurne's ai-job-search)](https://github.com/users/saurabhwinchurne/projects/4)
-- **Current Phase:** Ticket Execution: CMD-2 In Progress
+- **Current Phase:** Ticket Execution: CMD-2 In Review (PR #12 open)
 - **Active Ticket:** [#4](https://github.com/saurabhwinchurne/ai-job-search/issues/4) — [CMD-2] Job Search & Triage Pipeline
 - **Active Branch:** `feature/CMD-2-job-search-triage-pipeline`
 
@@ -22,7 +22,7 @@
 | [#1](https://github.com/saurabhwinchurne/ai-job-search/issues/1) | `[ARCH-1]` | Foundation & Runtime Bridge — Native Antigravity Rules & Single Source of Truth | `Done` | `feature/ARCH-1-foundation-runtime-bridge` | [#9](https://github.com/saurabhwinchurne/ai-job-search/pull/9) |
 | [#2](https://github.com/saurabhwinchurne/ai-job-search/issues/2) | `[ARCH-2]` | Subagent Architecture — Antigravity Subagent Definitions & Tool Adapters | `Done` | `feature/ARCH-2-subagent-architecture` | [#10](https://github.com/saurabhwinchurne/ai-job-search/pull/10) |
 | [#3](https://github.com/saurabhwinchurne/ai-job-search/issues/3) | `[CMD-1]` | Profile Onboarding & Management — Port `/setup`, `/reset`, and `/expand` | `Done` | `feature/CMD-1-profile-onboarding-skills` | [#11](https://github.com/saurabhwinchurne/ai-job-search/pull/11) |
-| [#4](https://github.com/saurabhwinchurne/ai-job-search/issues/4) | `[CMD-2]` | Job Search & Triage Pipeline — Port `/scrape` and `/rank` Skills | `In Progress` | `feature/CMD-2-job-search-triage-pipeline` | - |
+| [#4](https://github.com/saurabhwinchurne/ai-job-search/issues/4) | `[CMD-2]` | Job Search & Triage Pipeline — Port `/scrape` and `/rank` Skills | `In Review` | `feature/CMD-2-job-search-triage-pipeline` | [#12](https://github.com/saurabhwinchurne/ai-job-search/pull/12) |
 | [#5](https://github.com/saurabhwinchurne/ai-job-search/issues/5) | `[CMD-3]` | Core Application Engine — Port `/apply` and `job-application-assistant` | `Todo` | - | - |
 | [#6](https://github.com/saurabhwinchurne/ai-job-search/issues/6) | `[CMD-4]` | Post-Application Lifecycle — Port `/interview`, `/outcome`, `/upskill`, `/gmail-sync` | `Todo` | - | - |
 | [#7](https://github.com/saurabhwinchurne/ai-job-search/issues/7) | `[CMD-5]` | Customization & Reporting Tools — Port `/add-template`, `/add-portal`, `/html-report`, `/notion-sync` | `Todo` | - | - |
@@ -135,7 +135,7 @@
 
 ### [CMD-2] Job Search & Triage Pipeline — Port /scrape and /rank Skills
 - **Branch:** `feature/CMD-2-job-search-triage-pipeline`
-- **Status:** In Progress
+- **Status:** In Review
 - **Goal:** Port the two canonical job-search-and-triage commands (`/scrape` from `.claude/skills/job-scraper/SKILL.md` and `/rank` from `.claude/commands/rank.md`) to Antigravity-native skill specifications under `.agents/skills/` using the Thin-Pointer architecture, enabling the full scrape→rank pipeline as Antigravity IDE / `agy` CLI slash commands.
 - **Planned Approach:**
   - Create `.agents/skills/scrape/SKILL.md` wrapping `.claude/skills/job-scraper/SKILL.md` with tool translation matrix, parallel portal search via `invoke_subagent`, state tool usage (never read state directly), portal CLI discovery, trust boundary, health check, and referral link notes.
@@ -153,8 +153,13 @@
   - `CHANGELOG.md` (Modified)
   - `CONTEXT.md` (Modified)
 - **Verification:**
-  - *Pending*
-- **PR:** *Pending*
+  - `python3 -m unittest tests/test_cmd2_antigravity_skills.py -v` (Passed — 14 tests, 0 failures)
+  - `python3 -m unittest tests/test_cmd1_antigravity_skills.py -v` (Passed — 14 tests, 0 failures)
+  - `python3 tools/lint_skills.py` (Passed — 14 skills, 12 commands)
+  - `python3 tools/security_guards.py` (Passed — 0 errors)
+  - `python3 tools/check_framework_version.py` (Passed — OK)
+  - `GIT_EDITOR=true python3 -m unittest discover -s tests` (Passed — 922 tests, 0 failures)
+- **PR:** [#12](https://github.com/saurabhwinchurne/ai-job-search/pull/12)
 
 ---
 

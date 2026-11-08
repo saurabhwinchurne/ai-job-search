@@ -9,9 +9,9 @@
 - **Project:** Native Google Antigravity, Antigravity IDE, and `agy` CLI support for AI Job Search
 - **Repository:** `https://github.com/saurabhwinchurne/ai-job-search`
 - **Kanban Board:** [GitHub Project #4 (@saurabhwinchurne's ai-job-search)](https://github.com/users/saurabhwinchurne/projects/4)
-- **Current Phase:** Ticket Execution: CMD-1 Completed & Merged. Ready for next ticket.
-- **Active Ticket:** *None (CMD-1 Done; ready for next ticket)*
-- **Active Branch:** `master`
+- **Current Phase:** Ticket Execution: CMD-2 In Progress
+- **Active Ticket:** [#4](https://github.com/saurabhwinchurne/ai-job-search/issues/4) — [CMD-2] Job Search & Triage Pipeline
+- **Active Branch:** `feature/CMD-2-job-search-triage-pipeline`
 
 ---
 
@@ -22,7 +22,7 @@
 | [#1](https://github.com/saurabhwinchurne/ai-job-search/issues/1) | `[ARCH-1]` | Foundation & Runtime Bridge — Native Antigravity Rules & Single Source of Truth | `Done` | `feature/ARCH-1-foundation-runtime-bridge` | [#9](https://github.com/saurabhwinchurne/ai-job-search/pull/9) |
 | [#2](https://github.com/saurabhwinchurne/ai-job-search/issues/2) | `[ARCH-2]` | Subagent Architecture — Antigravity Subagent Definitions & Tool Adapters | `Done` | `feature/ARCH-2-subagent-architecture` | [#10](https://github.com/saurabhwinchurne/ai-job-search/pull/10) |
 | [#3](https://github.com/saurabhwinchurne/ai-job-search/issues/3) | `[CMD-1]` | Profile Onboarding & Management — Port `/setup`, `/reset`, and `/expand` | `Done` | `feature/CMD-1-profile-onboarding-skills` | [#11](https://github.com/saurabhwinchurne/ai-job-search/pull/11) |
-| [#4](https://github.com/saurabhwinchurne/ai-job-search/issues/4) | `[CMD-2]` | Job Search & Triage Pipeline — Port `/scrape` and `/rank` Skills | `Todo` | - | - |
+| [#4](https://github.com/saurabhwinchurne/ai-job-search/issues/4) | `[CMD-2]` | Job Search & Triage Pipeline — Port `/scrape` and `/rank` Skills | `In Progress` | `feature/CMD-2-job-search-triage-pipeline` | - |
 | [#5](https://github.com/saurabhwinchurne/ai-job-search/issues/5) | `[CMD-3]` | Core Application Engine — Port `/apply` and `job-application-assistant` | `Todo` | - | - |
 | [#6](https://github.com/saurabhwinchurne/ai-job-search/issues/6) | `[CMD-4]` | Post-Application Lifecycle — Port `/interview`, `/outcome`, `/upskill`, `/gmail-sync` | `Todo` | - | - |
 | [#7](https://github.com/saurabhwinchurne/ai-job-search/issues/7) | `[CMD-5]` | Customization & Reporting Tools — Port `/add-template`, `/add-portal`, `/html-report`, `/notion-sync` | `Todo` | - | - |
@@ -130,6 +130,31 @@
   - `python3 tools/check_framework_version.py` (Passed — OK)
   - `GIT_EDITOR=true python3 -m unittest discover -s tests` (Passed — 908 tests, 0 failures)
 - **PR:** [#11](https://github.com/saurabhwinchurne/ai-job-search/pull/11)
+
+---
+
+### [CMD-2] Job Search & Triage Pipeline — Port /scrape and /rank Skills
+- **Branch:** `feature/CMD-2-job-search-triage-pipeline`
+- **Status:** In Progress
+- **Goal:** Port the two canonical job-search-and-triage commands (`/scrape` from `.claude/skills/job-scraper/SKILL.md` and `/rank` from `.claude/commands/rank.md`) to Antigravity-native skill specifications under `.agents/skills/` using the Thin-Pointer architecture, enabling the full scrape→rank pipeline as Antigravity IDE / `agy` CLI slash commands.
+- **Planned Approach:**
+  - Create `.agents/skills/scrape/SKILL.md` wrapping `.claude/skills/job-scraper/SKILL.md` with tool translation matrix, parallel portal search via `invoke_subagent`, state tool usage (never read state directly), portal CLI discovery, trust boundary, health check, and referral link notes.
+  - Create `.agents/skills/rank/SKILL.md` wrapping `.claude/commands/rank.md` with tool translation matrix, `posting-scorer` subagent dispatch via `invoke_subagent`, `rank_state.py` state management, profile/framework inline loading, posting guard, expiry sweep, score aggregation, and veto rules.
+  - Create `tests/test_cmd2_antigravity_skills.py` validating skill files exist, parse clean frontmatter, reference canonical specs, contain translation matrices, and pass linting & security guards.
+  - Update `AGENTS.md` (bump `framework_version` to `1.1.3`), `GEMINI.md`, `CHANGELOG.md`, and `CONTEXT.md`.
+  - Update `tests/test_cmd1_antigravity_skills.py` skill count assertion from 12 to 14.
+- **Files Modified/Created:**
+  - `.agents/skills/scrape/SKILL.md` (New)
+  - `.agents/skills/rank/SKILL.md` (New)
+  - `tests/test_cmd2_antigravity_skills.py` (New)
+  - `tests/test_cmd1_antigravity_skills.py` (Modified)
+  - `AGENTS.md` (Modified)
+  - `GEMINI.md` (Modified)
+  - `CHANGELOG.md` (Modified)
+  - `CONTEXT.md` (Modified)
+- **Verification:**
+  - *Pending*
+- **PR:** *Pending*
 
 ---
 

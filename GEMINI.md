@@ -19,7 +19,7 @@ Antigravity agents must load candidate data and career preferences strictly from
    - Step-by-step application instructions: [.claude/commands/](.claude/commands/) (e.g., `apply.md`, `rank.md`, `interview.md`, `setup.md`)
    - Methodology & styling guidelines: [.claude/skills/job-application-assistant/](.claude/skills/job-application-assistant/) (e.g., `03-writing-style.md`, `04-job-evaluation.md`, `05-cv-templates.md`, `06-cover-letter-templates.md`, `09-web-research.md`)
 3. **Portal Search & Workflow Skills:**
-   - Standalone portal search CLIs (e.g., `jobindex-search`, `linkedin-search`, `jobnet-search`, `jobbank-search`, `jobdanmark-search`, `freehire-search`) and native Antigravity workflow skills (`setup`, `reset`, `expand`, `scrape`, `rank`, `apply`, `job-application-assistant`) live under [.agents/skills/](.agents/skills/).
+   - Standalone portal search CLIs (e.g., `jobindex-search`, `linkedin-search`, `jobnet-search`, `jobbank-search`, `jobdanmark-search`, `freehire-search`) and native Antigravity workflow skills (`setup`, `reset`, `expand`, `scrape`, `rank`, `apply`, `job-application-assistant`, `interview`, `outcome`, `upskill`, `gmail-sync`) live under [.agents/skills/](.agents/skills/).
 4. **Worker Subagents:**
    - Specialized worker subagent specifications live under [.agents/subagents/](.agents/subagents/) (`posting-fetcher.md`, `posting-scorer.md`, `application-reviewer.md`), with helper adapter `tools/antigravity_subagents.py` for parameter formatting and security policy validation.
 

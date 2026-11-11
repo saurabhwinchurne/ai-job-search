@@ -9,9 +9,9 @@
 - **Project:** Native Google Antigravity, Antigravity IDE, and `agy` CLI support for AI Job Search
 - **Repository:** `https://github.com/saurabhwinchurne/ai-job-search`
 - **Kanban Board:** [GitHub Project #4 (@saurabhwinchurne's ai-job-search)](https://github.com/users/saurabhwinchurne/projects/4)
-- **Current Phase:** Ticket Execution: CMD-3 Completed & Merged. Ready for next ticket.
-- **Active Ticket:** *None (CMD-3 Done; ready for next ticket)*
-- **Active Branch:** `master`
+- **Current Phase:** Ticket Execution: CMD-4 In Progress
+- **Active Ticket:** [#6: [CMD-4] Post-Application Lifecycle — Port /interview, /outcome, /upskill, and /gmail-sync Skills](https://github.com/saurabhwinchurne/ai-job-search/issues/6)
+- **Active Branch:** `feature/CMD-4-post-application-lifecycle`
 
 ---
 
@@ -24,7 +24,7 @@
 | [#3](https://github.com/saurabhwinchurne/ai-job-search/issues/3) | `[CMD-1]` | Profile Onboarding & Management — Port `/setup`, `/reset`, and `/expand` | `Done` | `feature/CMD-1-profile-onboarding-skills` | [#11](https://github.com/saurabhwinchurne/ai-job-search/pull/11) |
 | [#4](https://github.com/saurabhwinchurne/ai-job-search/issues/4) | `[CMD-2]` | Job Search & Triage Pipeline — Port `/scrape` and `/rank` Skills | `Done` | `feature/CMD-2-job-search-triage-pipeline` | [#12](https://github.com/saurabhwinchurne/ai-job-search/pull/12) |
 | [#5](https://github.com/saurabhwinchurne/ai-job-search/issues/5) | `[CMD-3]` | Core Application Engine — Port `/apply` and `job-application-assistant` | `Done` | `feature/CMD-3-core-application-engine` | [#13](https://github.com/saurabhwinchurne/ai-job-search/pull/13) |
-| [#6](https://github.com/saurabhwinchurne/ai-job-search/issues/6) | `[CMD-4]` | Post-Application Lifecycle — Port `/interview`, `/outcome`, `/upskill`, `/gmail-sync` | `Todo` | - | - |
+| [#6](https://github.com/saurabhwinchurne/ai-job-search/issues/6) | `[CMD-4]` | Post-Application Lifecycle — Port `/interview`, `/outcome`, `/upskill`, `/gmail-sync` | `In Review` | `feature/CMD-4-post-application-lifecycle` | [#14](https://github.com/saurabhwinchurne/ai-job-search/pull/14) |
 | [#7](https://github.com/saurabhwinchurne/ai-job-search/issues/7) | `[CMD-5]` | Customization & Reporting Tools — Port `/add-template`, `/add-portal`, `/html-report`, `/notion-sync` | `Todo` | - | - |
 | [#8](https://github.com/saurabhwinchurne/ai-job-search/issues/8) | `[QA-1]` | Verification Suite, Tooling Hardening & Antigravity Documentation | `Todo` | - | - |
 
@@ -192,6 +192,43 @@
   - `python3 tools/antigravity_subagents.py validate` (Passed — OK)
   - `GIT_EDITOR=true python3 -m unittest discover -s tests` (Passed — 938 tests, 0 failures)
 - **PR:** [#13](https://github.com/saurabhwinchurne/ai-job-search/pull/13)
+
+---
+
+### [CMD-4] Post-Application Lifecycle — Port /interview, /outcome, /upskill, and /gmail-sync Skills
+- **Branch:** `feature/CMD-4-post-application-lifecycle`
+- **Status:** In Review
+- **Goal:** Port the post-application lifecycle skills (`/interview`, `/outcome`, `/upskill`, `/gmail-sync`) to native Antigravity workspace skills under `.agents/skills/` using the Thin-Pointer architecture, ensuring single-source-of-truth continuity, strict trust boundaries, human-in-the-loop approval gates, and comprehensive unit test coverage.
+- **Planned Approach:**
+  - Create `.agents/skills/interview/SKILL.md` wrapping `.claude/commands/interview.md` with tool translation matrix, stage-specific prep pack generation (`interview_prep_<stage>.md`), mock interview roleplay simulation, candidate profile update on new facts, and consistency briefs.
+  - Create `.agents/skills/outcome/SKILL.md` wrapping `.claude/commands/outcome.md` with tool translation matrix, `job_search_tracker.csv` status updates and sanitization, application archiving (`outcome.md`, `cv_draft.tex`, `cover_letter.tex`), follow-up branch (Step 2b), stale sweep branch (Step 2c), and calibration handoff (Step 5).
+  - Create `.agents/skills/upskill/SKILL.md` wrapping `.claude/skills/upskill/SKILL.md` with tool translation matrix, aggregate and targeted modes, two-pass gap analysis, prioritized gap heatmap, web-searched study resources with time estimates, and report generation (`upskill/report-*.md`).
+  - Create `.agents/skills/gmail-sync/SKILL.md` wrapping `.claude/commands/gmail-sync.md` with tool translation matrix, Gmail plugin/connector integration, full email content classification, conflict detection, propose-and-approve gate, safe tracker and archive updates, and staleness checks.
+  - Create `tests/test_cmd4_antigravity_skills.py` covering all 4 skills and integration checks.
+  - Update skill count assertions in `tests/test_cmd1_antigravity_skills.py`, `tests/test_cmd2_antigravity_skills.py`, and `tests/test_cmd3_antigravity_skills.py` from 16 to 20 skills.
+  - Update `AGENTS.md` (bump `framework_version` to `1.1.5`), `GEMINI.md`, and `CHANGELOG.md`.
+- **Files Modified/Created:**
+  - `.agents/skills/interview/SKILL.md` (New)
+  - `.agents/skills/outcome/SKILL.md` (New)
+  - `.agents/skills/upskill/SKILL.md` (New)
+  - `.agents/skills/gmail-sync/SKILL.md` (New)
+  - `tests/test_cmd4_antigravity_skills.py` (New)
+  - `tests/test_cmd1_antigravity_skills.py` (Modified)
+  - `tests/test_cmd2_antigravity_skills.py` (Modified)
+  - `tests/test_cmd3_antigravity_skills.py` (Modified)
+  - `AGENTS.md` (Modified)
+  - `GEMINI.md` (Modified)
+  - `CHANGELOG.md` (Modified)
+  - `CONTEXT.md` (Modified)
+- **Verification:**
+  - `python3 -m unittest tests/test_cmd4_antigravity_skills.py -v` (Passed — 31 tests, 0 failures)
+  - `python3 -m unittest tests/test_cmd1_antigravity_skills.py tests/test_cmd2_antigravity_skills.py tests/test_cmd3_antigravity_skills.py -v` (Passed — 44 tests, 0 failures)
+  - `python3 tools/lint_skills.py` (Passed — 20 skills, 12 commands, settings.json)
+  - `python3 tools/security_guards.py` (Passed — 0 errors)
+  - `python3 tools/check_framework_version.py` (Passed — OK)
+  - `python3 tools/antigravity_subagents.py validate` (Passed — OK)
+  - `GIT_EDITOR=true python3 -m unittest discover -s tests` (Passed — 969 tests, 0 failures)
+- **PR:** [#14](https://github.com/saurabhwinchurne/ai-job-search/pull/14)
 
 ---
 

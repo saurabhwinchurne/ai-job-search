@@ -147,7 +147,7 @@ class TestCMD1Integration(unittest.TestCase):
             text=True,
         )
         self.assertEqual(res.returncode, 0, f"lint_skills.py failed:\n{res.stdout}\n{res.stderr}")
-        self.assertIn("14 skills", res.stdout)
+        self.assertIn("16 skills", res.stdout)
 
     def test_security_guards_pass(self):
         res = subprocess.run(

@@ -9,9 +9,9 @@
 - **Project:** Native Google Antigravity, Antigravity IDE, and `agy` CLI support for AI Job Search
 - **Repository:** `https://github.com/saurabhwinchurne/ai-job-search`
 - **Kanban Board:** [GitHub Project #4 (@saurabhwinchurne's ai-job-search)](https://github.com/users/saurabhwinchurne/projects/4)
-- **Current Phase:** Ticket Execution: CMD-3 In Progress
-- **Active Ticket:** Ticket #5: `[CMD-3] Core Application Engine — Port /apply and job-application-assistant Skills`
-- **Active Branch:** `feature/CMD-3-core-application-engine`
+- **Current Phase:** Ticket Execution: CMD-3 Completed & Merged. Ready for next ticket.
+- **Active Ticket:** *None (CMD-3 Done; ready for next ticket)*
+- **Active Branch:** `master`
 
 ---
 
@@ -23,7 +23,7 @@
 | [#2](https://github.com/saurabhwinchurne/ai-job-search/issues/2) | `[ARCH-2]` | Subagent Architecture — Antigravity Subagent Definitions & Tool Adapters | `Done` | `feature/ARCH-2-subagent-architecture` | [#10](https://github.com/saurabhwinchurne/ai-job-search/pull/10) |
 | [#3](https://github.com/saurabhwinchurne/ai-job-search/issues/3) | `[CMD-1]` | Profile Onboarding & Management — Port `/setup`, `/reset`, and `/expand` | `Done` | `feature/CMD-1-profile-onboarding-skills` | [#11](https://github.com/saurabhwinchurne/ai-job-search/pull/11) |
 | [#4](https://github.com/saurabhwinchurne/ai-job-search/issues/4) | `[CMD-2]` | Job Search & Triage Pipeline — Port `/scrape` and `/rank` Skills | `Done` | `feature/CMD-2-job-search-triage-pipeline` | [#12](https://github.com/saurabhwinchurne/ai-job-search/pull/12) |
-| [#5](https://github.com/saurabhwinchurne/ai-job-search/issues/5) | `[CMD-3]` | Core Application Engine — Port `/apply` and `job-application-assistant` | `In Review` | `feature/CMD-3-core-application-engine` | [#13](https://github.com/saurabhwinchurne/ai-job-search/pull/13) |
+| [#5](https://github.com/saurabhwinchurne/ai-job-search/issues/5) | `[CMD-3]` | Core Application Engine — Port `/apply` and `job-application-assistant` | `Done` | `feature/CMD-3-core-application-engine` | [#13](https://github.com/saurabhwinchurne/ai-job-search/pull/13) |
 | [#6](https://github.com/saurabhwinchurne/ai-job-search/issues/6) | `[CMD-4]` | Post-Application Lifecycle — Port `/interview`, `/outcome`, `/upskill`, `/gmail-sync` | `Todo` | - | - |
 | [#7](https://github.com/saurabhwinchurne/ai-job-search/issues/7) | `[CMD-5]` | Customization & Reporting Tools — Port `/add-template`, `/add-portal`, `/html-report`, `/notion-sync` | `Todo` | - | - |
 | [#8](https://github.com/saurabhwinchurne/ai-job-search/issues/8) | `[QA-1]` | Verification Suite, Tooling Hardening & Antigravity Documentation | `Todo` | - | - |
@@ -165,7 +165,7 @@
 
 ### [CMD-3] Core Application Engine — Port /apply and job-application-assistant Skills
 - **Branch:** `feature/CMD-3-core-application-engine`
-- **Status:** In Review
+- **Status:** Done (Merged to master on 2026-11-11 in PR #13)
 - **Goal:** Port the core job application engine (`/apply` and `job-application-assistant`) to native Antigravity workspace skills under `.agents/skills/` using the Thin-Pointer architecture, executing the two-agent drafter/reviewer lifecycle, LaTeX compilation, ATS verification, application tracking, and unit test coverage.
 - **Planned Approach:**
   - Create `.agents/skills/apply/SKILL.md` wrapping `.claude/commands/apply.md` with tool translation matrix, subagent orchestration (`posting-fetcher`, `application-reviewer`), active template resolution, strict page limits (2-page CV, 1-page cover letter), LaTeX/ATS verification (`verify_pdf.py`, `verify_layout.py`), application logging in `job_search_tracker.csv`, and posting archiving.

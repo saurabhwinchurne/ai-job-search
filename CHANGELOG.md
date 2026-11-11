@@ -22,7 +22,7 @@ per-file diff commands.
 - **[ARCH-2] Subagent Architecture** (#10) - Establish native Antigravity subagent specifications (`posting-fetcher`, `posting-scorer`, `application-reviewer`), tool adapter `tools/antigravity_subagents.py`, security guards validation, and unit tests.
 - **[CMD-1] Profile Onboarding & Management** (#11) - Port `/setup`, `/reset`, and `/expand` skills to Google Antigravity using Thin-Pointer architecture, `@-mention` shortcut support, and unit tests.
 - **[CMD-2] Job Search & Triage Pipeline** (#12) - Port `/scrape` and `/rank` skills to Google Antigravity using Thin-Pointer architecture, parallel subagent dispatch for portal searches and posting scoring, and unit tests.
-- **[CMD-3] Core Application Engine** - Port `/apply` and `job-application-assistant` skills to Google Antigravity using Thin-Pointer architecture, two-agent drafter/reviewer lifecycle, LaTeX/ATS verification, and unit tests.
+- **[CMD-3] Core Application Engine** (#13) - Port `/apply` and `job-application-assistant` skills to Google Antigravity using Thin-Pointer architecture, two-agent drafter/reviewer lifecycle, LaTeX/ATS verification, and unit tests.
 
 ## [1.7.4]
 

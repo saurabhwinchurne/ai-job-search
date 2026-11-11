@@ -9,9 +9,9 @@
 - **Project:** Native Google Antigravity, Antigravity IDE, and `agy` CLI support for AI Job Search
 - **Repository:** `https://github.com/saurabhwinchurne/ai-job-search`
 - **Kanban Board:** [GitHub Project #4 (@saurabhwinchurne's ai-job-search)](https://github.com/users/saurabhwinchurne/projects/4)
-- **Current Phase:** Ticket Execution: CMD-4 In Progress
-- **Active Ticket:** [#6: [CMD-4] Post-Application Lifecycle — Port /interview, /outcome, /upskill, and /gmail-sync Skills](https://github.com/saurabhwinchurne/ai-job-search/issues/6)
-- **Active Branch:** `feature/CMD-4-post-application-lifecycle`
+- **Current Phase:** Ticket Execution: CMD-4 Completed & Merged. Ready for next ticket.
+- **Active Ticket:** *None (CMD-4 Done; ready for next ticket)*
+- **Active Branch:** `master`
 
 ---
 
@@ -24,7 +24,7 @@
 | [#3](https://github.com/saurabhwinchurne/ai-job-search/issues/3) | `[CMD-1]` | Profile Onboarding & Management — Port `/setup`, `/reset`, and `/expand` | `Done` | `feature/CMD-1-profile-onboarding-skills` | [#11](https://github.com/saurabhwinchurne/ai-job-search/pull/11) |
 | [#4](https://github.com/saurabhwinchurne/ai-job-search/issues/4) | `[CMD-2]` | Job Search & Triage Pipeline — Port `/scrape` and `/rank` Skills | `Done` | `feature/CMD-2-job-search-triage-pipeline` | [#12](https://github.com/saurabhwinchurne/ai-job-search/pull/12) |
 | [#5](https://github.com/saurabhwinchurne/ai-job-search/issues/5) | `[CMD-3]` | Core Application Engine — Port `/apply` and `job-application-assistant` | `Done` | `feature/CMD-3-core-application-engine` | [#13](https://github.com/saurabhwinchurne/ai-job-search/pull/13) |
-| [#6](https://github.com/saurabhwinchurne/ai-job-search/issues/6) | `[CMD-4]` | Post-Application Lifecycle — Port `/interview`, `/outcome`, `/upskill`, `/gmail-sync` | `In Review` | `feature/CMD-4-post-application-lifecycle` | [#14](https://github.com/saurabhwinchurne/ai-job-search/pull/14) |
+| [#6](https://github.com/saurabhwinchurne/ai-job-search/issues/6) | `[CMD-4]` | Post-Application Lifecycle — Port `/interview`, `/outcome`, `/upskill`, `/gmail-sync` | `Done` | `feature/CMD-4-post-application-lifecycle` | [#14](https://github.com/saurabhwinchurne/ai-job-search/pull/14) |
 | [#7](https://github.com/saurabhwinchurne/ai-job-search/issues/7) | `[CMD-5]` | Customization & Reporting Tools — Port `/add-template`, `/add-portal`, `/html-report`, `/notion-sync` | `Todo` | - | - |
 | [#8](https://github.com/saurabhwinchurne/ai-job-search/issues/8) | `[QA-1]` | Verification Suite, Tooling Hardening & Antigravity Documentation | `Todo` | - | - |
 
@@ -197,7 +197,7 @@
 
 ### [CMD-4] Post-Application Lifecycle — Port /interview, /outcome, /upskill, and /gmail-sync Skills
 - **Branch:** `feature/CMD-4-post-application-lifecycle`
-- **Status:** In Review
+- **Status:** Done (Merged to master on 2026-11-11 in PR #14)
 - **Goal:** Port the post-application lifecycle skills (`/interview`, `/outcome`, `/upskill`, `/gmail-sync`) to native Antigravity workspace skills under `.agents/skills/` using the Thin-Pointer architecture, ensuring single-source-of-truth continuity, strict trust boundaries, human-in-the-loop approval gates, and comprehensive unit test coverage.
 - **Planned Approach:**
   - Create `.agents/skills/interview/SKILL.md` wrapping `.claude/commands/interview.md` with tool translation matrix, stage-specific prep pack generation (`interview_prep_<stage>.md`), mock interview roleplay simulation, candidate profile update on new facts, and consistency briefs.

@@ -1,5 +1,5 @@
 ---
-framework_version: 1.1.5
+framework_version: 1.1.6
 ---
 
 # Agent Guidelines: AI Job Search
@@ -30,7 +30,7 @@ All agent runtimes must load canonical specifications and candidate profiles fro
    - Step-by-step instructions and command triggers (setup, scrape, rank, apply, upskill, interview) are defined in the [.claude/](.claude/) directory (specifically under `.claude/skills/` and `.claude/commands/`).
    - Treat `.claude/` files as the single source of truth for methodology, prompts, and scoring rubrics.
 3. **Portal Search & Workflow Skills:**
-   - Standalone portal search CLIs (e.g., `linkedin-search`, `freehire-search`) and native Antigravity workflow skills (`setup`, `reset`, `expand`, `scrape`, `rank`, `apply`, `job-application-assistant`, `interview`, `outcome`, `upskill`, `gmail-sync`) live under [.agents/skills/](.agents/skills/) in the portable Agent Skills format (with a `SKILL.md` per skill). Antigravity and Codex discover these automatically; workflow skills act as thin pointers to canonical specs.
+   - Standalone portal search CLIs (e.g., `linkedin-search`, `freehire-search`) and native Antigravity workflow skills (`setup`, `reset`, `expand`, `scrape`, `rank`, `apply`, `job-application-assistant`, `interview`, `outcome`, `upskill`, `gmail-sync`, `add-template`, `add-portal`, `html-report`, `notion-sync`) live under [.agents/skills/](.agents/skills/) in the portable Agent Skills format (with a `SKILL.md` per skill). Antigravity and Codex discover these automatically; workflow skills act as thin pointers to canonical specs.
 4. **Antigravity Subagent Specifications:**
    - Worker subagent specifications live under [.agents/subagents/](.agents/subagents/) (`posting-fetcher.md`, `posting-scorer.md`, `application-reviewer.md`), with helper adapter `tools/antigravity_subagents.py` for parameter formatting and security policy validation.
 

@@ -9,9 +9,9 @@
 - **Project:** Native Google Antigravity, Antigravity IDE, and `agy` CLI support for AI Job Search
 - **Repository:** `https://github.com/saurabhwinchurne/ai-job-search`
 - **Kanban Board:** [GitHub Project #4 (@saurabhwinchurne's ai-job-search)](https://github.com/users/saurabhwinchurne/projects/4)
-- **Current Phase:** Ticket Execution: CMD-5 In Review (PR #15).
-- **Active Ticket:** [#7: [CMD-5] Customization & Reporting Tools — Port /add-template, /add-portal, /html-report, and /notion-sync Skills](https://github.com/saurabhwinchurne/ai-job-search/issues/7)
-- **Active Branch:** `feature/CMD-5-customization-reporting-tools`
+- **Current Phase:** Ticket Execution: CMD-5 Completed & Merged. Ready for next ticket.
+- **Active Ticket:** *None (CMD-5 Done; ready for next ticket)*
+- **Active Branch:** `master`
 
 ---
 
@@ -25,7 +25,7 @@
 | [#4](https://github.com/saurabhwinchurne/ai-job-search/issues/4) | `[CMD-2]` | Job Search & Triage Pipeline — Port `/scrape` and `/rank` Skills | `Done` | `feature/CMD-2-job-search-triage-pipeline` | [#12](https://github.com/saurabhwinchurne/ai-job-search/pull/12) |
 | [#5](https://github.com/saurabhwinchurne/ai-job-search/issues/5) | `[CMD-3]` | Core Application Engine — Port `/apply` and `job-application-assistant` | `Done` | `feature/CMD-3-core-application-engine` | [#13](https://github.com/saurabhwinchurne/ai-job-search/pull/13) |
 | [#6](https://github.com/saurabhwinchurne/ai-job-search/issues/6) | `[CMD-4]` | Post-Application Lifecycle — Port `/interview`, `/outcome`, `/upskill`, `/gmail-sync` | `Done` | `feature/CMD-4-post-application-lifecycle` | [#14](https://github.com/saurabhwinchurne/ai-job-search/pull/14) |
-| [#7](https://github.com/saurabhwinchurne/ai-job-search/issues/7) | `[CMD-5]` | Customization & Reporting Tools — Port `/add-template`, `/add-portal`, `/html-report`, `/notion-sync` | `In Review` | `feature/CMD-5-customization-reporting-tools` | [#15](https://github.com/saurabhwinchurne/ai-job-search/pull/15) |
+| [#7](https://github.com/saurabhwinchurne/ai-job-search/issues/7) | `[CMD-5]` | Customization & Reporting Tools — Port `/add-template`, `/add-portal`, `/html-report`, `/notion-sync` | `Done` | `feature/CMD-5-customization-reporting-tools` | [#15](https://github.com/saurabhwinchurne/ai-job-search/pull/15) |
 | [#8](https://github.com/saurabhwinchurne/ai-job-search/issues/8) | `[QA-1]` | Verification Suite, Tooling Hardening & Antigravity Documentation | `Todo` | - | - |
 
 ---
@@ -233,8 +233,8 @@
 ---
 
 ### [CMD-5] Customization & Reporting Tools — Port /add-template, /add-portal, /html-report, and /notion-sync Skills
-- **Branch:** `feature/CMD-5-customization-reporting-tools`
-- **Status:** In Review
+- **Branch:** `feature/CMD-5-customization-reporting-tools` (merged to master & deleted)
+- **Status:** Done (Merged to master on 2026-11-13 in PR #15)
 - **Goal:** Port extension, templating, and reporting commands (`/add-template`, `/add-portal`, `/html-report`, and `/notion-sync`) to native Antigravity workspace skills under `.agents/skills/` using the Thin-Pointer architecture, ensuring single-source-of-truth continuity, sandboxed build and compilation rules, untrusted input boundaries, and comprehensive unit test coverage.
 - **Planned Approach:**
   - Create `.agents/skills/add-template/SKILL.md` wrapping `.claude/commands/add-template.md` with tool translation matrix, template registration/switching/listing modes, compilation test with dummy data, build directory redirect isolation, and managed block insertion in `05-cv-templates.md` or `06-cover-letter-templates.md`.

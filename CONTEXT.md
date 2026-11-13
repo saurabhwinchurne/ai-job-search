@@ -9,9 +9,9 @@
 - **Project:** Native Google Antigravity, Antigravity IDE, and `agy` CLI support for AI Job Search
 - **Repository:** `https://github.com/saurabhwinchurne/ai-job-search`
 - **Kanban Board:** [GitHub Project #4 (@saurabhwinchurne's ai-job-search)](https://github.com/users/saurabhwinchurne/projects/4)
-- **Current Phase:** Ticket Execution: CMD-4 Completed & Merged. Ready for next ticket.
-- **Active Ticket:** *None (CMD-4 Done; ready for next ticket)*
-- **Active Branch:** `master`
+- **Current Phase:** Ticket Execution: CMD-5 In Review (PR #15).
+- **Active Ticket:** [#7: [CMD-5] Customization & Reporting Tools — Port /add-template, /add-portal, /html-report, and /notion-sync Skills](https://github.com/saurabhwinchurne/ai-job-search/issues/7)
+- **Active Branch:** `feature/CMD-5-customization-reporting-tools`
 
 ---
 
@@ -25,7 +25,7 @@
 | [#4](https://github.com/saurabhwinchurne/ai-job-search/issues/4) | `[CMD-2]` | Job Search & Triage Pipeline — Port `/scrape` and `/rank` Skills | `Done` | `feature/CMD-2-job-search-triage-pipeline` | [#12](https://github.com/saurabhwinchurne/ai-job-search/pull/12) |
 | [#5](https://github.com/saurabhwinchurne/ai-job-search/issues/5) | `[CMD-3]` | Core Application Engine — Port `/apply` and `job-application-assistant` | `Done` | `feature/CMD-3-core-application-engine` | [#13](https://github.com/saurabhwinchurne/ai-job-search/pull/13) |
 | [#6](https://github.com/saurabhwinchurne/ai-job-search/issues/6) | `[CMD-4]` | Post-Application Lifecycle — Port `/interview`, `/outcome`, `/upskill`, `/gmail-sync` | `Done` | `feature/CMD-4-post-application-lifecycle` | [#14](https://github.com/saurabhwinchurne/ai-job-search/pull/14) |
-| [#7](https://github.com/saurabhwinchurne/ai-job-search/issues/7) | `[CMD-5]` | Customization & Reporting Tools — Port `/add-template`, `/add-portal`, `/html-report`, `/notion-sync` | `Todo` | - | - |
+| [#7](https://github.com/saurabhwinchurne/ai-job-search/issues/7) | `[CMD-5]` | Customization & Reporting Tools — Port `/add-template`, `/add-portal`, `/html-report`, `/notion-sync` | `In Review` | `feature/CMD-5-customization-reporting-tools` | [#15](https://github.com/saurabhwinchurne/ai-job-search/pull/15) |
 | [#8](https://github.com/saurabhwinchurne/ai-job-search/issues/8) | `[QA-1]` | Verification Suite, Tooling Hardening & Antigravity Documentation | `Todo` | - | - |
 
 ---
@@ -229,6 +229,44 @@
   - `python3 tools/antigravity_subagents.py validate` (Passed — OK)
   - `GIT_EDITOR=true python3 -m unittest discover -s tests` (Passed — 969 tests, 0 failures)
 - **PR:** [#14](https://github.com/saurabhwinchurne/ai-job-search/pull/14)
+
+---
+
+### [CMD-5] Customization & Reporting Tools — Port /add-template, /add-portal, /html-report, and /notion-sync Skills
+- **Branch:** `feature/CMD-5-customization-reporting-tools`
+- **Status:** In Review
+- **Goal:** Port extension, templating, and reporting commands (`/add-template`, `/add-portal`, `/html-report`, and `/notion-sync`) to native Antigravity workspace skills under `.agents/skills/` using the Thin-Pointer architecture, ensuring single-source-of-truth continuity, sandboxed build and compilation rules, untrusted input boundaries, and comprehensive unit test coverage.
+- **Planned Approach:**
+  - Create `.agents/skills/add-template/SKILL.md` wrapping `.claude/commands/add-template.md` with tool translation matrix, template registration/switching/listing modes, compilation test with dummy data, build directory redirect isolation, and managed block insertion in `05-cv-templates.md` or `06-cover-letter-templates.md`.
+  - Create `.agents/skills/add-portal/SKILL.md` wrapping `.claude/commands/add-portal.md` with tool translation matrix, guided portal CLI scaffolding, robots.txt verification, personal use boundaries, standard search/detail contracts, output hygiene (`visibleHtml`, `stripInvisible`), and security guard allowlist registration.
+  - Create `.agents/skills/html-report/SKILL.md` wrapping `.claude/commands/html-report.md` with tool translation matrix, tracker data parsing with outcome file merging, 6 canonical status buckets, inline SVG chart generation, HTML escaping, and Antigravity artifact/generative UI integration.
+  - Create `.agents/skills/notion-sync/SKILL.md` wrapping `.claude/commands/notion-sync.md` with tool translation matrix, Notion MCP preflight graceful exit, status and deadline precedence rules, idempotent upsert on Key, write-once page bodies, and zero document content leakage.
+  - Create `tests/test_cmd5_antigravity_skills.py` covering all 4 skills and integration checks.
+  - Update skill count assertions in `tests/test_cmd1_antigravity_skills.py`, `tests/test_cmd2_antigravity_skills.py`, `tests/test_cmd3_antigravity_skills.py`, and `tests/test_cmd4_antigravity_skills.py` from 20 to 24 skills.
+  - Update `AGENTS.md` (bump `framework_version` to `1.1.6`), `GEMINI.md`, and `CHANGELOG.md`.
+- **Files Modified/Created:**
+  - `.agents/skills/add-template/SKILL.md` (New)
+  - `.agents/skills/add-portal/SKILL.md` (New)
+  - `.agents/skills/html-report/SKILL.md` (New)
+  - `.agents/skills/notion-sync/SKILL.md` (New)
+  - `tests/test_cmd5_antigravity_skills.py` (New)
+  - `tests/test_cmd1_antigravity_skills.py` (Modified)
+  - `tests/test_cmd2_antigravity_skills.py` (Modified)
+  - `tests/test_cmd3_antigravity_skills.py` (Modified)
+  - `tests/test_cmd4_antigravity_skills.py` (Modified)
+  - `AGENTS.md` (Modified)
+  - `GEMINI.md` (Modified)
+  - `CHANGELOG.md` (Modified)
+  - `CONTEXT.md` (Modified)
+- **Verification:**
+  - `python3 -m unittest tests/test_cmd5_antigravity_skills.py -v` (Passed — 27 tests, 0 failures)
+  - `python3 -m unittest tests/test_cmd1_antigravity_skills.py tests/test_cmd2_antigravity_skills.py tests/test_cmd3_antigravity_skills.py tests/test_cmd4_antigravity_skills.py tests/test_cmd5_antigravity_skills.py -v` (Passed — 102 tests, 0 failures)
+  - `python3 tools/lint_skills.py` (Passed — 24 skills, 12 commands, settings.json)
+  - `python3 tools/security_guards.py` (Passed — 0 errors)
+  - `python3 tools/check_framework_version.py` (Passed — OK)
+  - `python3 tools/antigravity_subagents.py validate` (Passed — OK)
+  - `GIT_EDITOR=true python3 -m unittest discover -s tests` (Passed — 996 tests, 0 failures)
+- **PR:** [#15](https://github.com/saurabhwinchurne/ai-job-search/pull/15)
 
 ---
 

@@ -24,6 +24,7 @@ per-file diff commands.
 - **[CMD-2] Job Search & Triage Pipeline** (#12) - Port `/scrape` and `/rank` skills to Google Antigravity using Thin-Pointer architecture, parallel subagent dispatch for portal searches and posting scoring, and unit tests.
 - **[CMD-3] Core Application Engine** (#13) - Port `/apply` and `job-application-assistant` skills to Google Antigravity using Thin-Pointer architecture, two-agent drafter/reviewer lifecycle, LaTeX/ATS verification, and unit tests.
 - **[CMD-4] Post-Application Lifecycle** (#14) - Port `/interview`, `/outcome`, `/upskill`, and `/gmail-sync` skills to Google Antigravity using Thin-Pointer architecture, prep pack and mock interview generation, tracker/outcome synchronization with human-in-the-loop approval gates, skill gap heatmaps, and unit tests.
+- **[CMD-5] Customization & Reporting Tools** (#15) - Port `/add-template`, `/add-portal`, `/html-report`, and `/notion-sync` skills to Google Antigravity using Thin-Pointer architecture, template isolation build rules, standard CLI contract verification, offline SVG report dashboard with Generative UI integration, and one-way Notion sync.
 
 ## [1.7.4]
 

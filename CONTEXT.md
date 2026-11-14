@@ -9,9 +9,9 @@
 - **Project:** Native Google Antigravity, Antigravity IDE, and `agy` CLI support for AI Job Search
 - **Repository:** `https://github.com/saurabhwinchurne/ai-job-search`
 - **Kanban Board:** [GitHub Project #4 (@saurabhwinchurne's ai-job-search)](https://github.com/users/saurabhwinchurne/projects/4)
-- **Current Phase:** Ticket Execution: CMD-5 Completed & Merged. Ready for next ticket.
-- **Active Ticket:** *None (CMD-5 Done; ready for next ticket)*
-- **Active Branch:** `master`
+- **Current Phase:** Ticket Execution: QA-1 Complete. PR #16 Open (In Review).
+- **Active Ticket:** [#8](https://github.com/saurabhwinchurne/ai-job-search/issues/8) `[QA-1]` Verification Suite, Tooling Hardening & Antigravity Documentation
+- **Active Branch:** `feature/QA-1-verification-suite-antigravity-docs`
 
 ---
 
@@ -26,7 +26,7 @@
 | [#5](https://github.com/saurabhwinchurne/ai-job-search/issues/5) | `[CMD-3]` | Core Application Engine — Port `/apply` and `job-application-assistant` | `Done` | `feature/CMD-3-core-application-engine` | [#13](https://github.com/saurabhwinchurne/ai-job-search/pull/13) |
 | [#6](https://github.com/saurabhwinchurne/ai-job-search/issues/6) | `[CMD-4]` | Post-Application Lifecycle — Port `/interview`, `/outcome`, `/upskill`, `/gmail-sync` | `Done` | `feature/CMD-4-post-application-lifecycle` | [#14](https://github.com/saurabhwinchurne/ai-job-search/pull/14) |
 | [#7](https://github.com/saurabhwinchurne/ai-job-search/issues/7) | `[CMD-5]` | Customization & Reporting Tools — Port `/add-template`, `/add-portal`, `/html-report`, `/notion-sync` | `Done` | `feature/CMD-5-customization-reporting-tools` | [#15](https://github.com/saurabhwinchurne/ai-job-search/pull/15) |
-| [#8](https://github.com/saurabhwinchurne/ai-job-search/issues/8) | `[QA-1]` | Verification Suite, Tooling Hardening & Antigravity Documentation | `Todo` | - | - |
+| [#8](https://github.com/saurabhwinchurne/ai-job-search/issues/8) | `[QA-1]` | Verification Suite, Tooling Hardening & Antigravity Documentation | `In Review` | `feature/QA-1-verification-suite-antigravity-docs` | [#16](https://github.com/saurabhwinchurne/ai-job-search/pull/16) |
 
 ---
 
@@ -267,6 +267,39 @@
   - `python3 tools/antigravity_subagents.py validate` (Passed — OK)
   - `GIT_EDITOR=true python3 -m unittest discover -s tests` (Passed — 996 tests, 0 failures)
 - **PR:** [#15](https://github.com/saurabhwinchurne/ai-job-search/pull/15)
+
+---
+
+### [QA-1] Verification Suite, Tooling Hardening & Antigravity Documentation
+- **Branch:** `feature/QA-1-verification-suite-antigravity-docs`
+- **Status:** In Review
+- **Goal:** Harden the verification suite (`tools/lint_skills.py`), implement a comprehensive unit test suite in `tests/test_antigravity_skills.py` validating all 21 skills, verify upstream update and rebase compatibility, and provide comprehensive documentation in `README.md`, `SETUP.md`, and `CONTRIBUTING.md` for running in all Google Antigravity environments (Antigravity IDE, `agy` CLI, Desktop/Web).
+- **Planned Approach:**
+  - Harden `tools/lint_skills.py` with directory name matching and canonical spec reference existence checks.
+  - Create `tests/test_antigravity_skills.py` covering all 21 `.agents/skills/` (15 workflow skills + 6 portal search skills), verifying frontmatter, directory matching, canonical spec references, tool translation matrices, and CLI entry points.
+  - Verify `python3 tools/check_upstream_updates.py --no-fetch` runs cleanly with Antigravity extensions.
+  - Add comprehensive Google Antigravity and `agy` CLI installation and setup guides in `README.md` and `SETUP.md` covering all Antigravity environments (IDE, CLI, App, and workspace setup).
+  - Update `CONTRIBUTING.md` with guidelines for Antigravity contributions (Thin-Pointer single source of truth, least-privilege subagents, and security guard policies).
+  - Bump `framework_version` to `1.2.0` in `AGENTS.md` and log milestone in `CHANGELOG.md`.
+- **Files Modified/Created:**
+  - `tools/lint_skills.py` (Modified)
+  - `tests/test_antigravity_skills.py` (New)
+  - `tests/test_lint_skills.py` (Modified)
+  - `README.md` (Modified)
+  - `SETUP.md` (Modified)
+  - `CONTRIBUTING.md` (Modified)
+  - `AGENTS.md` (Modified)
+  - `CHANGELOG.md` (Modified)
+  - `CONTEXT.md` (Modified)
+- **Verification:**
+  - `python3 -m unittest tests/test_antigravity_skills.py tests/test_lint_skills.py -v` (Passed — 30 tests, 0 failures)
+  - `python3 tools/lint_skills.py` (Passed — 24 skills, 12 commands, settings.json)
+  - `python3 tools/security_guards.py` (Passed — 0 errors)
+  - `python3 tools/antigravity_subagents.py validate` (Passed — OK)
+  - `python3 tools/check_framework_version.py` (Passed — OK)
+  - `python3 tools/check_upstream_updates.py --no-fetch` (Passed — OK)
+  - `GIT_EDITOR=true python3 -m unittest discover -s tests` (Passed — 1017 tests, 0 failures, 33 skipped)
+- **PR:** [#16](https://github.com/saurabhwinchurne/ai-job-search/pull/16)
 
 ---
 

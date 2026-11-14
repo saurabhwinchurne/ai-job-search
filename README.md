@@ -80,16 +80,17 @@ The framework encodes career guidance best practices, including structured evalu
 
 | | |
 |---|---|
-| **[Claude Code](https://claude.com/claude-code)** | The CLI. No free tier: a Claude Pro/Max/Team subscription or Anthropic API credits (pay-per-token, usually cheaper for occasional use). |
-| **Python 3.10+** | For the tools in `tools/`. |
+| **[Claude Code](https://claude.com/claude-code)** or **[Google Antigravity](https://github.com/google-deepmind/antigravity)** | First-class native support for both runtimes. In Antigravity IDE and `agy` CLI, all 21 skills auto-load as slash commands with full multi-agent orchestration. |
+| **Python 3.10+** | For the tools in `tools/` and test verification suite. |
 | **[Bun](https://bun.sh)** | Runs the job search CLI tools. |
 | **LaTeX** | A distribution with `lualatex` and `xelatex`: [TeX Live](https://tug.org/texlive/), [MacTeX](https://tug.org/mactex/), [TinyTeX](https://yihui.org/tinytex/), or [MiKTeX](https://miktex.org/). |
 | **pypdf** *(optional)* | `pip install pypdf` for `/apply`'s ATS parseability check. |
 
 <details>
-<summary>Fine print: other agents, LaTeX engines, PDF text extraction</summary>
+<summary>Fine print: Antigravity IDE & agy CLI, LaTeX engines, PDF text extraction</summary>
 
-- **Using a different agent tool** (Codex, Antigravity, Gemini CLI)? Start at [`AGENTS.md`](AGENTS.md) - the portal search skills work there out of the box, and [community forks](https://github.com/ai-job-search-dev/ai-job-search/discussions/78) adapt the full workflow.
+- **Google Antigravity & `agy` CLI.** Native out-of-the-box support without external wrappers. Open the workspace in Antigravity IDE or launch `agy` in your terminal; all commands (`/setup`, `/scrape`, `/rank`, `/apply`, etc.) are auto-indexed as native slash commands. Supports direct `@-mention` file inputs (e.g. `/setup @documents/cv/my-cv.pdf`). See [SETUP.md](SETUP.md#4b-google-antigravity--agy-cli-setup-guide).
+- **Using other agents** (Codex, Cursor)? Start at [`AGENTS.md`](AGENTS.md) — portal search skills and thin-pointer specifications are auto-discovered.
 - **LaTeX engines.** The CV compiles with `lualatex` (pdflatex often fails on modern MiKTeX installs with `fontawesome5` font-expansion errors); the cover letter compiles with `xelatex` because `cover.cls` requires `fontspec`. If using a minimal TeX install such as TinyTeX or BasicTeX, install the extra packages listed in [SETUP.md](SETUP.md#minimal-tex-install-tinytexbasictex).
 - **PDF text extraction.** `pypdf` is BSD-licensed and needs no Poppler. Poppler `pdftotext` remains a fallback (macOS: `brew install poppler`, Debian/Ubuntu: `apt install poppler-utils`, Windows: `choco install poppler`). If both are missing, the check degrades to a visual keyword review.
 
@@ -129,9 +130,15 @@ For `linkedin-search` and `freehire-search` the install is optional: both have z
 ### 3. Set up your profile
 
 ```bash
+# Option A: In Claude Code
 claude
-# Then inside Claude Code:
 /setup
+
+# Option B: In Google Antigravity (agy CLI or Antigravity IDE)
+agy
+/setup
+# Or pass your documents directly using @-mentions:
+/setup @documents/cv/master-cv.pdf
 ```
 
 `/setup` offers three paths: read your `documents/` folder if you have one populated (CV PDF, LinkedIn export, diplomas, reference letters, past applications), import a single CV pasted in chat, or walk through an interview. It auto-detects what you have and asks. Documents-folder mode is idempotent and safe to re-run as you add more material; see `documents/README.md` for the layout.
@@ -360,41 +367,25 @@ To get the most from this, invest time during `/setup` in describing not just yo
 
 ```
 ai-job-search/
-├── CLAUDE.md                          # Main candidate profile + workflow rules
+├── CLAUDE.md                          # Main candidate profile + Claude Code workflow rules
+├── GEMINI.md                          # Google Antigravity & agy CLI entry point & verification rules
+├── AGENTS.md                          # Multi-runtime bridge, thin-pointer architecture & framework version
+├── .agents/
+│   ├── rules/                         # Antigravity IDE directory rules (Git signing, PR lifecycle, security)
+│   ├── skills/                        # 21 native Antigravity slash-command skills
+│   │   ├── setup/, reset/, expand/    # Profile onboarding & enrichment skills
+│   │   ├── scrape/, rank/, apply/     # Core search, scoring, and application engine
+│   │   ├── interview/, outcome/       # Interview prep, outcome tracking & follow-up
+│   │   ├── upskill/, gmail-sync/      # Learning plan & automated status synchronization
+│   │   ├── add-template/, add-portal/ # Custom template and local job-board generators
+│   │   ├── html-report/, notion-sync/ # Offline dashboard & Notion live sync
+│   │   ├── job-application-assistant/ # Application methodology skill
+│   │   └── *-search/ (6 portals)      # Danish & global portal search CLIs (Bun)
+│   └── subagents/                     # Specialized worker subagents (fetcher, scorer, reviewer)
 ├── .claude/
-│   ├── commands/
-│   │   ├── apply.md                   # /apply workflow (drafter-reviewer)
-│   │   ├── setup.md                   # /setup onboarding (documents folder, CV import, or interview)
-│   │   ├── expand.md                  # /expand competency enrichment from documents and online presence
-│   │   ├── add-template.md            # /add-template register custom templates (LaTeX, Typst, ...)
-│   │   ├── add-portal.md              # /add-portal generate a job-portal search skill for your market
-│   │   ├── rank.md                    # /rank triage scraped jobs into a ranked shortlist
-│   │   ├── outcome.md                 # /outcome record application results, archive materials
-│   │   ├── gmail-sync.md              # /gmail-sync auto-detect application status from Gmail
-│   │   ├── interview.md               # /interview stage-specific prep pack + mock interview
-│   │   ├── html-report.md             # /html-report generate application tracker dashboard
-│   │   ├── notion-sync.md             # /notion-sync one-way pipeline view in a Notion database
-│   │   └── reset.md                   # /reset wipe profile data or documents folder
-│   ├── skills/
-│   │   ├── job-application-assistant/  # Core application skill
-│   │   │   ├── SKILL.md               # Skill definition
-│   │   │   ├── 01-candidate-profile.md # Your education, experience, skills
-│   │   │   ├── 02-behavioral-profile.md# PI/DISC/personality assessment
-│   │   │   ├── 03-writing-style.md    # Tone, structure, do's and don'ts
-│   │   │   ├── 04-job-evaluation.md   # Scoring framework for job fit
-│   │   │   ├── 05-cv-templates.md     # LaTeX CV structure + tailoring rules
-│   │   │   ├── 06-cover-letter-templates.md # LaTeX cover letter templates
-│   │   │   └── 07-interview-prep.md   # STAR examples + interview framework
-│   │   ├── job-scraper/               # Job search orchestration
-│   │   └── upskill/                   # /upskill skill gap analysis and learning plan
+│   ├── commands/                      # Canonical workflow specifications (setup, apply, rank, ...)
+│   ├── skills/                        # Canonical methodology & guidance files (01 through 09)
 │   └── settings.json                  # Claude Code permissions (shared, scoped)
-├── .agents/skills/                    # Job portal CLI tools
-│   ├── jobbank-search/                # Akademikernes Jobbank (Denmark)
-│   ├── jobdanmark-search/             # Jobdanmark.dk (Denmark)
-│   ├── jobindex-search/               # Jobindex.dk (Denmark)
-│   ├── jobnet-search/                 # Jobnet.dk (Denmark, government portal)
-│   ├── linkedin-search/               # LinkedIn public job listings (country-agnostic)
-│   └── freehire-search/               # freehire.me tech job aggregator (multi-market, REST API)
 ├── assets/                            # README artwork (Pip the mascot, animated SVG diagrams)
 ├── cv/
 │   └── main_example.tex               # moderncv LaTeX template
@@ -414,6 +405,7 @@ ai-job-search/
 ├── .github/workflows/ci.yml           # CI: LaTeX smoke compiles, skill lint, CLI typechecks
 ├── salary_lookup.py                   # Salary benchmarking tool (BYO data)
 ├── tools/
+│   ├── antigravity_subagents.py       # Antigravity subagent validator & parameter adapter
 │   ├── check_framework_version.py     # CI check: framework_version bumped when skill files change
 │   ├── check_upstream_updates.py      # Preview which personalized files an upstream update touches
 │   ├── convert_salary_excel.py        # Convert salary Excel to JSON

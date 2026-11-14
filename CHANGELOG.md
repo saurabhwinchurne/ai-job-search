@@ -25,6 +25,7 @@ per-file diff commands.
 - **[CMD-3] Core Application Engine** (#13) - Port `/apply` and `job-application-assistant` skills to Google Antigravity using Thin-Pointer architecture, two-agent drafter/reviewer lifecycle, LaTeX/ATS verification, and unit tests.
 - **[CMD-4] Post-Application Lifecycle** (#14) - Port `/interview`, `/outcome`, `/upskill`, and `/gmail-sync` skills to Google Antigravity using Thin-Pointer architecture, prep pack and mock interview generation, tracker/outcome synchronization with human-in-the-loop approval gates, skill gap heatmaps, and unit tests.
 - **[CMD-5] Customization & Reporting Tools** (#15) - Port `/add-template`, `/add-portal`, `/html-report`, and `/notion-sync` skills to Google Antigravity using Thin-Pointer architecture, template isolation build rules, standard CLI contract verification, offline SVG report dashboard with Generative UI integration, and one-way Notion sync.
+- **[QA-1] Verification Suite, Tooling Hardening & Antigravity Documentation** - Harden verification tooling (`tools/lint_skills.py`), implement unified test suite `tests/test_antigravity_skills.py` across all 21 skills, verify upstream rebase compatibility in `tools/check_upstream_updates.py`, and provide comprehensive setup and contribution guides for Google Antigravity, Antigravity IDE, and `agy` CLI in `README.md`, `SETUP.md`, and `CONTRIBUTING.md`. Bump `framework_version` to `1.2.0`.
 
 ## [1.7.4]
 

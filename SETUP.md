@@ -4,15 +4,18 @@ Step-by-step instructions for getting the AI Job Search framework running.
 
 ## 1. Prerequisites
 
-### Claude Code
+### Agent Runtime (Claude Code or Google Antigravity)
 
-Install Claude Code (Anthropic's CLI for Claude):
+This framework supports two native AI runtimes out of the box:
 
-```bash
-npm install -g @anthropic-ai/claude-code
-```
+- **[Claude Code](https://claude.com/claude-code)**:
+  ```bash
+  npm install -g @anthropic-ai/claude-code
+  ```
+  Requires an Anthropic API key or Claude Pro/Team subscription. See [Claude Code docs](https://docs.anthropic.com/en/docs/claude-code).
 
-You'll need an Anthropic API key or a Claude Pro/Team subscription. See the [Claude Code docs](https://docs.anthropic.com/en/docs/claude-code) for details.
+- **[Google Antigravity](https://github.com/google-deepmind/antigravity) / Antigravity IDE / `agy` CLI**:
+  Native multi-agent IDE and CLI support. Rules (`GEMINI.md`, `AGENTS.md`) and slash commands (`.agents/skills/`) load automatically upon opening the repository workspace. See [Google Antigravity & agy CLI Setup Guide](#google-antigravity--agy-cli-setup-guide) below.
 
 ### Python
 
@@ -248,6 +251,99 @@ You can update specific sections later:
 ```
 
 The `--section search` option is especially useful as your priorities evolve. It re-runs the search configuration interview and suggests role types you may not have considered based on your full profile.
+
+## 4b. Google Antigravity & agy CLI Setup Guide
+
+This repository features first-class native support for the Google Antigravity multi-agent platform, including **Google Antigravity IDE**, the **`agy` CLI**, and the **Google Antigravity Desktop / Web** application.
+
+### 1. Architectural Overview & Single Source of Truth
+
+To ensure complete compatibility and avoid configuration drift when upstream updates are pulled, the Antigravity integration uses a **Thin-Pointer Architecture**:
+- **Candidate Profile**: Loaded directly from `CLAUDE.md` and `.claude/skills/job-application-assistant/01-candidate-profile.md`.
+- **Methodology & Commands**: Defined canonically in `.claude/commands/` and `.claude/skills/`.
+- **Native Antigravity Skills**: All 15 workflow commands (`setup`, `reset`, `expand`, `scrape`, `rank`, `apply`, `job-application-assistant`, `interview`, `outcome`, `upskill`, `gmail-sync`, `add-template`, `add-portal`, `html-report`, `notion-sync`) and 6 portal search tools live in `.agents/skills/`. Each contains a `SKILL.md` that Antigravity auto-discovers as a slash command (e.g. `/<skill-name>`), mapping Claude Code tools to Antigravity native tools (`read_file`, `write_file`, `edit_file`, `run_command`, `ask_question`, `invoke_subagent`).
+- **Worker Subagents**: Worker agents (`posting-fetcher`, `posting-scorer`, `application-reviewer`) live under `.agents/subagents/` with prompt-injection defenses and least-privilege tool definitions.
+
+### 2. Setting Up in All Antigravity Environments
+
+#### Environment A: Google Antigravity IDE
+
+1. **Open Workspace**:
+   Launch Antigravity IDE and open the `ai-job-search` directory (`File -> Open Folder` or `agy .`).
+2. **Automatic Discovery**:
+   - Top-level rules in `GEMINI.md` and `AGENTS.md` load immediately into workspace context.
+   - Directory rules under `.agents/rules/*.md` enforce security, Git commit signing, and lifecycle policies.
+   - All 21 skills in `.agents/skills/` are auto-indexed as chat slash commands. Type `/` in the prompt bar to view and autocomplete all commands (`/setup`, `/scrape`, `/rank`, `/apply`, etc.).
+3. **Document Passing via `@-Mentions`**:
+   Antigravity IDE supports direct file tagging with `@`. To run profile setup directly from your PDF documents without copying and pasting:
+   ```text
+   /setup @documents/cv/master-cv.pdf @documents/linkedin/profile-export.pdf
+   ```
+4. **Interactive Prompts**:
+   When `/setup`, `/interview`, or other skills ask for multi-choice decisions, Antigravity renders interactive choice cards natively via `ask_question`.
+
+#### Environment B: `agy` CLI (Terminal)
+
+1. **Launch `agy`**:
+   Navigate to the repository root and start the interactive session:
+   ```bash
+   cd ai-job-search
+   agy
+   ```
+2. **Interactive Slash Commands**:
+   All skills registered in `.agents/skills/` are available directly as slash commands inside the `agy` prompt:
+   ```text
+   agy> /setup
+   agy> /scrape
+   agy> /rank
+   agy> /apply https://jobindex.dk/job/1234567
+   ```
+3. **Headless / Single-Command Execution**:
+   To run workflows directly from your shell or scripts:
+   ```bash
+   agy -m "/scrape"
+   agy -m "/apply https://jobindex.dk/job/1234567"
+   ```
+
+#### Environment C: Google Antigravity Desktop / Web
+
+1. **Add Workspace**:
+   In the Google Antigravity application, click **Add Workspace** and select your local `ai-job-search` clone.
+2. **Tool Permissions**:
+   Ensure file operations (`read_file`, `write_file`, `edit_file`) and terminal commands (`run_command`) are enabled for the workspace.
+3. **Execute Workflows**:
+   Interact via the chat interface using slash commands or natural language triggers (e.g. "set up my profile", "find tech jobs", "apply to this posting").
+
+#### Environment D: Global Skill / Plugin Configuration (Optional)
+
+If you wish to use the portal search CLIs (such as `linkedin-search` or `freehire-search`) across multiple repositories:
+- You can register any `.agents/skills/<name>/` directory into your personal Antigravity configuration directory:
+  ```bash
+  mkdir -p ~/.gemini/antigravity/skills
+  cp -r .agents/skills/linkedin-search ~/.gemini/antigravity/skills/
+  ```
+- Or invoke them from any terminal via standard Bun execution:
+  ```bash
+  bun run /path/to/ai-job-search/.agents/skills/linkedin-search/cli/src/cli.ts search -q "AI Engineer" -l "Remote"
+  ```
+
+### 3. Verification Suite & Health Checks
+
+Antigravity includes a comprehensive local verification suite to ensure skills, permissions, and tools are hardened:
+
+```bash
+# 1. Lint all skills, commands, and settings:
+python3 tools/lint_skills.py
+
+# 2. Check supply-chain security guards and tool permissions:
+python3 tools/security_guards.py
+
+# 3. Verify Antigravity subagent specifications:
+python3 tools/antigravity_subagents.py validate
+
+# 4. Run the complete automated test suite (1000+ tests):
+python3 -m unittest discover -s tests
+```
 
 ## 5. Optional: Set up salary benchmarking
 

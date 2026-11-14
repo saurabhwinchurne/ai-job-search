@@ -6,6 +6,9 @@ Run from anywhere: python tools/lint_skills.py
 Checks:
 - Every SKILL.md (.claude/skills/*, .agents/skills/*) has YAML frontmatter that
   parses, with non-empty `name` and `description` keys
+- Frontmatter `name` matches the skill directory name
+- Canonical specification references (.claude/commands/*, .claude/skills/*)
+  point to files or directories that exist
 - `allowed-tools` entries of the form `Bash(bun run <path> *)` point at files
   that exist (skill paths resolve relative to the repo root and to .agents/)
 - Every .claude/commands/*.md starts with a `# /<name>` title
@@ -52,6 +55,21 @@ def check_skill(path: Path) -> None:
     for key in ("name", "description"):
         if not data.get(key):
             errors.append(f"{rel(path)}: frontmatter missing required key '{key}'")
+
+    skill_name = data.get("name")
+    # For .agents/skills/*, Antigravity registers slash commands from directory names;
+    # ensure frontmatter name strictly matches the directory.
+    if skill_name and path.is_relative_to(ROOT / ".agents" / "skills"):
+        if skill_name != path.parent.name:
+            errors.append(
+                f"{rel(path)}: frontmatter name '{skill_name}' does not match directory '{path.parent.name}'"
+            )
+
+    # Validate canonical specification references in skill text
+    for match in re.finditer(r"\.claude/(?:commands|skills)/[A-Za-z0-9_./-]+", text):
+        canonical_target = match.group(0).rstrip(".,;:)'\"`")
+        if not (ROOT / canonical_target).exists():
+            errors.append(f"{rel(path)}: references missing canonical spec '{canonical_target}'")
 
     allowed = data.get("allowed-tools", "")
     if isinstance(allowed, str):

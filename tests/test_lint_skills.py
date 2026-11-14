@@ -168,6 +168,46 @@ class SkillAndCommandCheckTests(LinterRepoFixture):
         self.assertEqual(result.returncode, 1)
         self.assertIn("must start with a '# /<name>' title", result.stdout)
 
+    def test_antigravity_skill_name_mismatch_fails(self):
+        agent_skill = self.root / ".agents" / "skills" / "my-skill" / "SKILL.md"
+        agent_skill.parent.mkdir(parents=True)
+        agent_skill.write_text(
+            "---\nname: different-name\ndescription: Test mismatch\n---\n",
+            encoding="utf-8",
+        )
+
+        result = run_linter(self.root)
+
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("does not match directory 'my-skill'", result.stdout)
+
+    def test_missing_canonical_spec_reference_fails(self):
+        agent_skill = self.root / ".agents" / "skills" / "ptr-skill" / "SKILL.md"
+        agent_skill.parent.mkdir(parents=True)
+        agent_skill.write_text(
+            "---\nname: ptr-skill\ndescription: Thin pointer skill\n---\n"
+            "> Canonical spec: `.claude/commands/missing_spec.md`\n",
+            encoding="utf-8",
+        )
+
+        result = run_linter(self.root)
+
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("references missing canonical spec '.claude/commands/missing_spec.md'", result.stdout)
+
+    def test_valid_canonical_spec_reference_passes(self):
+        agent_skill = self.root / ".agents" / "skills" / "valid-ptr" / "SKILL.md"
+        agent_skill.parent.mkdir(parents=True)
+        agent_skill.write_text(
+            "---\nname: valid-ptr\ndescription: Valid pointer skill\n---\n"
+            "> Canonical spec: `.claude/commands/setup.md`\n",
+            encoding="utf-8",
+        )
+
+        result = run_linter(self.root)
+
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -9,9 +9,9 @@
 - **Project:** Native Google Antigravity, Antigravity IDE, and `agy` CLI support for AI Job Search
 - **Repository:** `https://github.com/saurabhwinchurne/ai-job-search`
 - **Kanban Board:** [GitHub Project #4 (@saurabhwinchurne's ai-job-search)](https://github.com/users/saurabhwinchurne/projects/4)
-- **Current Phase:** Ticket Execution: QA-1 Complete. PR #16 Open (In Review).
-- **Active Ticket:** [#8](https://github.com/saurabhwinchurne/ai-job-search/issues/8) `[QA-1]` Verification Suite, Tooling Hardening & Antigravity Documentation
-- **Active Branch:** `feature/QA-1-verification-suite-antigravity-docs`
+- **Current Phase:** Roadmap Complete: All planned tickets (ARCH-1 through QA-1) completed and merged to master.
+- **Active Ticket:** *None (All planned tickets Done)*
+- **Active Branch:** `master`
 
 ---
 
@@ -26,7 +26,7 @@
 | [#5](https://github.com/saurabhwinchurne/ai-job-search/issues/5) | `[CMD-3]` | Core Application Engine — Port `/apply` and `job-application-assistant` | `Done` | `feature/CMD-3-core-application-engine` | [#13](https://github.com/saurabhwinchurne/ai-job-search/pull/13) |
 | [#6](https://github.com/saurabhwinchurne/ai-job-search/issues/6) | `[CMD-4]` | Post-Application Lifecycle — Port `/interview`, `/outcome`, `/upskill`, `/gmail-sync` | `Done` | `feature/CMD-4-post-application-lifecycle` | [#14](https://github.com/saurabhwinchurne/ai-job-search/pull/14) |
 | [#7](https://github.com/saurabhwinchurne/ai-job-search/issues/7) | `[CMD-5]` | Customization & Reporting Tools — Port `/add-template`, `/add-portal`, `/html-report`, `/notion-sync` | `Done` | `feature/CMD-5-customization-reporting-tools` | [#15](https://github.com/saurabhwinchurne/ai-job-search/pull/15) |
-| [#8](https://github.com/saurabhwinchurne/ai-job-search/issues/8) | `[QA-1]` | Verification Suite, Tooling Hardening & Antigravity Documentation | `In Review` | `feature/QA-1-verification-suite-antigravity-docs` | [#16](https://github.com/saurabhwinchurne/ai-job-search/pull/16) |
+| [#8](https://github.com/saurabhwinchurne/ai-job-search/issues/8) | `[QA-1]` | Verification Suite, Tooling Hardening & Antigravity Documentation | `Done` | `feature/QA-1-verification-suite-antigravity-docs` | [#16](https://github.com/saurabhwinchurne/ai-job-search/pull/16) |
 
 ---
 
@@ -271,8 +271,8 @@
 ---
 
 ### [QA-1] Verification Suite, Tooling Hardening & Antigravity Documentation
-- **Branch:** `feature/QA-1-verification-suite-antigravity-docs`
-- **Status:** In Review
+- **Branch:** `feature/QA-1-verification-suite-antigravity-docs` (merged & deleted)
+- **Status:** Done (Merged to master on 2026-11-15 in PR #16)
 - **Goal:** Harden the verification suite (`tools/lint_skills.py`), implement a comprehensive unit test suite in `tests/test_antigravity_skills.py` validating all 21 skills, verify upstream update and rebase compatibility, and provide comprehensive documentation in `README.md`, `SETUP.md`, and `CONTRIBUTING.md` for running in all Google Antigravity environments (Antigravity IDE, `agy` CLI, Desktop/Web).
 - **Planned Approach:**
   - Harden `tools/lint_skills.py` with directory name matching and canonical spec reference existence checks.

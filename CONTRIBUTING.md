@@ -50,19 +50,39 @@ Market-specific skills are genuinely valuable - they just live in forks, where t
 
 One practical warning: when you open a PR from a fork, GitHub targets this upstream repo by default, not your own - three personalized-fork PRs landed here by accident in a single week ([#155], [#162], [#165]). Check the "base repository" dropdown before publishing.
 
-## Porting to another AI runtime? Forks too
+## Multi-Runtime Architecture & Antigravity Contributions
 
-Claude Code is the reference runtime: it is what the maintainer runs daily and what every methodology change is verified on. A parallel command tree for another runtime (Codex, Antigravity, Gemini CLI, ...) would ship untested on every change - CI cannot run those harnesses - and each accepted runtime makes the next one harder to refuse. It is the same arithmetic that keeps market-specific portals in forks.
+This repository maintains first-class native support for both **Claude Code** and **Google Antigravity** (Antigravity IDE, `agy` CLI, and Desktop/Web workspaces).
 
-What upstream maintains for other runtimes instead:
+To prevent configuration drift and maintain rebase safety with upstream, all runtime extensions must strictly follow the **Thin-Pointer Design**:
 
-- The portal search skills in `.agents/skills/` use the portable Agent Skills format (`SKILL.md` per portal) and are auto-discovered by Codex and Antigravity today.
-- The root `AGENTS.md` points any agent at the canonical workflow specs and the profile entry point.
-- Framework instruction files carry `framework_version` markers, so a runtime fork can track methodology changes precisely (`python3 tools/check_upstream_updates.py`).
+1. **Single Source of Truth (`.claude/`)**:
+   - The canonical methodology, prompts, evaluation rubrics, and instructions reside exclusively in `.claude/commands/` and `.claude/skills/`.
+   - Never duplicate prompt text, scoring math, or evaluation criteria into `.agents/skills/`.
+   - Any PR proposing changes to application methodology must update the canonical `.claude/` files first; `.agents/skills/*/SKILL.md` files must remain thin pointers translating tool calls.
 
-Announce your runtime fork in the pinned [Community forks & adaptations](https://github.com/ai-job-search-dev/ai-job-search/discussions/78) discussion and it gets listed alongside the market adaptations. The proven shape is a thin pointer: reference the specs here instead of copying them, so upstream improvements reach your fork on rebase.
+2. **Antigravity Skills (`.agents/skills/`)**:
+   - Every skill must carry valid YAML frontmatter (`name`, `description`, `context: fork`, `enabled: true`).
+   - The frontmatter `name` must match its parent directory name.
+   - Every workflow skill must declare a **Tool Translation Matrix** mapping Claude Code actions (`View`, `Edit`, `Write`, `Bash`, `Agent`, `AskUserQuestion`) to Antigravity native tools (`read_file`, `edit_file`, `write_file`, `run_command`, `invoke_subagent`, `ask_question`).
+   - Every canonical reference must point to an existing file in `.claude/`.
 
-This is a decision, not a dogma: if cross-runtime standards mature to the point where these specs run unmodified elsewhere, or the community's center of gravity moves to runtime forks, the trade-off gets re-evaluated. Background: the architecture thread in [Community forks & adaptations](https://github.com/ai-job-search-dev/ai-job-search/discussions/78).
+3. **Antigravity Subagents (`.agents/subagents/`)**:
+   - Specialized worker subagents (`posting-fetcher`, `posting-scorer`, `application-reviewer`) handle external web fetching, candidate scoring, and hiring-manager critique.
+   - **Least Privilege**: Worker subagents may never edit or write files directly, and may never spawn further subagents (`enable_subagent_tools: false`).
+   - **Untrusted Posting Boundary**: All external job descriptions must pass through `tools/posting_guard.py` before model processing.
+   - All subagent definitions must be validated with `python3 tools/antigravity_subagents.py validate`.
+
+4. **Required Verification Checks**:
+   Before submitting a PR, verify all CI gates locally:
+   ```bash
+   python3 tools/lint_skills.py                     # Enforces YAML frontmatter and pointer validity
+   python3 tools/security_guards.py                 # Enforces permissions and subagent trust boundaries
+   python3 tools/antigravity_subagents.py validate  # Enforces subagent schema compliance
+   python3 tools/check_framework_version.py         # Enforces version tracking
+   python3 tools/check_upstream_updates.py --no-fetch
+   python3 -m unittest discover -s tests            # Runs full regression test suite (1000+ tests)
+   ```
 
 ## Practical notes
 

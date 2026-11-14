@@ -1,5 +1,5 @@
 ---
-framework_version: 1.1.6
+framework_version: 1.2.0
 ---
 
 # Agent Guidelines: AI Job Search
